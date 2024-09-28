@@ -1,0 +1,7 @@
+.mainRow{
+    width: 700px;
+}
+.inputBox{
+    display: flex;
+    justify-content: space-between;
+}

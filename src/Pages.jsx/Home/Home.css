@@ -1,0 +1,25 @@
+.innerCard{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+.lineChart{
+    background-color: white;
+   border-radius: 10px;
+    
+   
+}
+.raderChart{
+    background-color: white;
+    border-radius: 10px;
+    
+}
+.activityCard{
+    flex-wrap: wrap;
+}
+.activityIcon{
+    margin-left: 53px;
+}
+.activityIcon2{
+    margin-left: 100px;
+}

@@ -1,0 +1,11 @@
+.headingrow{
+    width: 1100px;
+}
+.addBtn{
+    display: flex;
+    justify-content: end;
+}
+.headingRow2{
+    display: flex;
+    justify-content: space-between;
+}

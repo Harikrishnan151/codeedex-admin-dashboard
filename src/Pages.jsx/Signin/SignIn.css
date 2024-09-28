@@ -1,0 +1,75 @@
+/* *{
+    background-color: rgb(237, 241, 247);
+} */
+
+body {
+    background-color: rgb(237, 241, 247) !important;
+}
+
+
+.row{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.formHeading{
+    text-align: start;
+    background-color: white;
+}
+.signInform{
+    background-color: white;
+}
+/* .card{
+    background-color: white;
+    box-shadow: none;
+    border: none;
+} */
+#form1{
+    background-color: whit;
+}
+
+.mdb-input input {
+    background-color: white;
+}
+.form-check{
+   box-shadow: none;
+}
+
+@media only screen and (max-width: 320px) {
+.logo{
+    width: 100%;
+}
+
+}
+
+@media only screen and (max-width: 375px) {
+    .logo{
+        width: 100%;
+    }
+
+}
+
+@media only screen and (max-width: 390px) {
+    .logo{
+        width: 100%;
+    } 
+}
+
+@media only screen and (max-width: 415px) {
+    .logo{
+        width: 100%;
+    }  
+}
+
+@media only screen and (max-width: 425px) {
+    .logo{
+        width: 100%;
+    }    
+}
+
+@media only screen and (max-width: 430px) {
+    .logo{
+        width: 100%;
+    }    
+}
+
