@@ -4,22 +4,31 @@
 
 }
 .lineChart{
-    background-color: white;
    border-radius: 10px;
-    
-   
+      
 }
 .raderChart{
     background-color: white;
     border-radius: 10px;
     
 }
-.activityCard{
-    flex-wrap: wrap;
-}
+.activityCard {
+    display: flex; 
+    flex-direction: column; 
+    flex-wrap: wrap; 
+  }
+  
 .activityIcon{
-    margin-left: 53px;
+    margin-left: 53.3px;
 }
 .activityIcon2{
     margin-left: 100px;
+}
+.icondata{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.mainHeading{
+    font-family: "Montserrat", sans-serif;
 }

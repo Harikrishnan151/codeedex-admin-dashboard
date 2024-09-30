@@ -22,6 +22,7 @@ import AddWork from './Pages.jsx/AddWork/AddWork';
 import AddEmployee from './Pages.jsx/AddEmployees/AddEmployee';
 import AttendenceSheet from './Pages.jsx/AttendenceSheet/AttendenceSheet';
 import CoPresentIcon from '@mui/icons-material/CoPresent';
+
 function App() {
 
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ function App() {
             } else {
               navigate(key);
             }
-          }}  style={{ width: 200, height:"812px" }}
+          }}  style={{ width: 200, height:"910px" }}
           items={[
             { label: <span style={{ fontSize: '16px' }}>Dashboard</span>, icon: <AirplayIcon />, key: "/home" },
             { label: <span style={{ fontSize: '16px' }}>ANALYSE</span>,disabled: true }, 

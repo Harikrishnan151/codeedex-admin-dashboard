@@ -12,13 +12,13 @@ import { MDBBtn } from 'mdb-react-ui-kit';
 function AddEmployee() {
   return (
     <div className="container">
-    <h3 style={{color:'black'}} className='mx-4 mt-4 '>Employee</h3>
-    <p className='mx-4' style={{ color: '#4F4F4F' }}>Manage / Employee / <span style={{ color: 'black', }}>Add Employee</span></p>
+    <h3 style={{color:'black'}} className='mainHeading mx-4 mt-4 '>Employee</h3>
+    <p className='mainHeading mx-4' style={{ color: '#4F4F4F' }}>Manage / Employee / <span style={{ color: 'black', }}>Add Employee</span></p>
     <div className="row employeeRow mx-4 my-3">
         <div className="col-12">
             <MDBCard>
                 <MDBCardBody>
-                    <MDBCardTitle style={{ fontWeight: "bold",color:'black' }}>Add a Employee</MDBCardTitle>
+                    <MDBCardTitle className='mainHeading' style={{ fontWeight: "bold",color:'black' }}>Add a Employee</MDBCardTitle>
                     <MDBCardText>
                         <label className='formHeading my-2'>Employee Name</label>
                         <MDBInput  id="form1" type="text" />

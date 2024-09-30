@@ -17,8 +17,8 @@ function Attendence() {
 
     return (
         <div className="container">
-            <h3 style={{color:'black'}} className='mx-4 mt-4 '>Attendence</h3>
-            <p className='mx-4' style={{ color: '#4F4F4F' }}>Track / Attendence / <span style={{ color: 'black', }}>Attendence Sheet</span></p>
+            <h3 style={{color:'black'}} className='mainHeading mx-4 mt-4 '>Attendence</h3>
+            <p className='mainHeading mx-4' style={{ color: '#4F4F4F' }}>Track / Attendence / <span style={{ color: 'black', }}>Attendence Sheet</span></p>
 
             <div className="row attendencerow1 mx-4 my-3">
                 <div className="col-3">
@@ -77,7 +77,7 @@ function Attendence() {
 
             <div className="row attendencerow1 mx-4 ">
                 <di className=" col-12 ">
-                    <h5 className='my-3' style={{ fontWeight: "bold" }}>Attendance Report</h5>
+                    <h5 className='mainHeading my-3' style={{ fontWeight: "bold" }}>Attendance Report</h5>
                     <MDBTable responsive>
                         <MDBTableHead style={{ backgroundColor: "rgb(237, 241, 247)" }} >
                             <tr>

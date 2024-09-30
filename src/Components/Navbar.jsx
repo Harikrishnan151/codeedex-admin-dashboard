@@ -154,8 +154,8 @@ function Navbar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: '#fff', boxShadow: 'none', borderBottom: '1px solid #ddd' }}>
-        <Toolbar sx={{ justifyContent: 'center', minHeight: '80px' }}> {/* Center content and add height */}
+      <AppBar position="static" sx={{ backgroundColor: '#fff', boxShadow: 'none', borderBottom: '1px solid #ddd',boxShadow: '0px 2px 20px 0px #0129701A' }}>
+        <Toolbar sx={{ justifyContent: 'center', minHeight: '80px' }}> 
           <Typography
             variant="h6"
             noWrap

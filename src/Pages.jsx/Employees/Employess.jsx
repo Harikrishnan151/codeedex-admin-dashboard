@@ -12,8 +12,8 @@ function Employess() {
         <div className="container">
             <div className='row EmployeeRow1'>
                 <div className="col-6">
-                    <h3 style={{color:"black"}} className='mx-4 mt-4 '>Employee</h3>
-                    <p className='mx-4' style={{ color: '#4F4F4F' }}>Manage / <span style={{ color: 'black', }}>Employee</span></p>
+                    <h3 style={{color:"black"}} className='mainHeading mx-4 mt-4 '>Employee</h3>
+                    <p className='mainHeading mx-4' style={{ color: '#4F4F4F' }}>Manage / <span style={{ color: 'black', }}>Employee</span></p>
 
                 </div>
                 <div className="col-6 addBtn">
@@ -27,7 +27,7 @@ function Employess() {
 
             <div className="row row1 mx-2 my-2">
                 <div className="col-12 my-3 headingRow2">
-                    <h5 style={{ fontWeight: "bold",color:"black" }}>Current Employee</h5>
+                    <h5 className='mainHeading' style={{ fontWeight: "bold",color:"black" }}>Current Employee</h5>
                     <div>
                         <MDBInput label="Search" id="form1" type="text" />
                     </div>

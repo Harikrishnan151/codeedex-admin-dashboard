@@ -16,8 +16,8 @@ function AttendenceSheet() {
     };
     return (
         <div className="container">
-            <h3 style={{color:'black'}} className='mx-4 mt-4 '>Attendence</h3>
-            <p className='mx-4' style={{ color: '#4F4F4F' }}>Track / Attendence / <span style={{ color: 'black', }}>Attendence Sheet</span></p>
+            <h3 style={{color:'black'}} className='mainHeading mx-4 mt-4 '>Attendence</h3>
+            <p className=' mainHeading mx-4' style={{ color: '#4F4F4F' }}>Track / Attendence / <span style={{ color: 'black', }}>Attendence Sheet</span></p>
             <div className="row boxRows mx-3">
                 <div className="col-2">
                     <FormControl sx={{ m: 1, minWidth: 200 }} size="small">
