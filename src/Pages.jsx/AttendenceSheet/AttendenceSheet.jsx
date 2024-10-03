@@ -121,7 +121,7 @@ function AttendenceSheet() {
                 </div>
                 <div className="col-2">
                     <Link >
-                        <MDBBtn color='dark'>
+                        <MDBBtn  size='sm' color='dark'>
                             Generate Report
                         </MDBBtn></Link>
                 </div>

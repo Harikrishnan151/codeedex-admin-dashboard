@@ -18,7 +18,12 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.black, 0.05),
+  // backgroundColor: alpha(theme.palette.common.black, 0.05),
+  backgroundColor: '#fff', // Set background to white
+  borderRadius: theme.shape.borderRadius, // Add border-radius for cleaner look
+  // padding: theme.spacing(1),
+  width: '100%',
+  border: '1px solid #ccc',
   '&:hover': {
     backgroundColor: alpha(theme.palette.common.black, 0.1),
   },
@@ -31,25 +36,25 @@ const Search = styled('div')(({ theme }) => ({
   },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}));
+// const SearchIconWrapper = styled('div')(({ theme }) => ({
+//   padding: theme.spacing(0, 2),
+//   height: '100%',
+//   position: 'absolute',
+//   pointerEvents: 'none',
+//   display: 'flex',
+//   alignItems: 'center',
+//   justifyContent: 'center',
+// }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: 'inherit',
   '& .MuiInputBase-input': {
     padding: theme.spacing(1, 1, 1, 0),
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    paddingLeft: `calc(0em + ${theme.spacing()})`,
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: '20ch',
+      width: '25ch',
     },
     '&::placeholder': {
       color: '#000', 
@@ -160,18 +165,19 @@ function Navbar() {
             variant="h6"
             noWrap
             component="div"
-            sx={{ display: { xs: 'none', sm: 'block' }, color: '#000',fontWeight: 'bold',fontSize: '1rem' }} // Set color to black
+            sx={{ display: { xs: 'none', sm: 'block' }, color: '#000',fontWeight: 'bold',fontSize: '1rem' }} 
           >
             Codeedex Technolgies
           </Typography>
-          <Search >
-            {/* <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper> */}
-            <StyledInputBase
+          <Search sx={{marginRight:'50px'}} >
+              <StyledInputBase
               placeholder="Search..."
               inputProps={{ 'aria-label': 'search' }}
             />
+            {/* <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper> */}
+          
           </Search>
           <Box sx={{ flexGrow: 1 }} />
           <Box sx={{ display: { xs: 'none', md: 'flex' } }}>

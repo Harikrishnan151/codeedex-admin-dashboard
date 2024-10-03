@@ -48,7 +48,7 @@ function App() {
             } else {
               navigate(key);
             }
-          }}  style={{ width: 200, height:"810px" }}
+          }}  style={{ width: 215, height:"810px" }}
           items={[
             { label: <span style={{ fontSize: '16px' }}>Dashboard</span>, icon: <AirplayIcon />, key: "/home" },
             { label: <span style={{ fontSize: '16px' }}>ANALYSE</span>,disabled: true }, 

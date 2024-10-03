@@ -16,13 +16,13 @@ function Attendence() {
     };
 
     return (
-        <div className="container">
+        <div className="container-fluid">
             <h3 style={{color:'black'}} className='mainHeading mx-4 mt-4 '>Attendence</h3>
             <p className='mainHeading mx-4' style={{ color: '#4F4F4F' }}>Track / Attendence / <span style={{ color: 'black', }}>Attendence Sheet</span></p>
 
             <div className="row attendencerow1 mx-4 my-3">
                 <div className="col-3">
-                    <FormControl sx={{ m: 1, minWidth: 200 }} size="small">
+                    <FormControl sx={{ m: 2, minWidth: 200 }} size="small">
                         <InputLabel id="demo-select-small-label">Department</InputLabel>
                         <Select
                             labelId="demo-select-small-label"
@@ -63,14 +63,17 @@ function Attendence() {
                     </FormControl>
                 </div>
                 <div className="col-3 ">
-                    <input className='mx-3' style={{ width: '150px', height: '36px', borderRadius: "4px" }} type="date" />
+                    <input style={{ width: '160px', height: '37px', borderRadius: "4px" }} type="date" />
                 </div>
                 <div className="col-3">
                     <Link to={'/attendanceSheet'}>
-                        <MDBBtn color='dark'>
+                        <MDBBtn   color='dark'>
                             Generate Sheet
                         </MDBBtn></Link>
                 </div>
+                {/* <div className="col-1">
+                    
+                </div> */}
 
 
             </div>

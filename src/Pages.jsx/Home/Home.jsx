@@ -147,30 +147,13 @@ function Home() {
       <p className='mainHeading mx-4'>Home / <span style={{ color: 'black' }}>Dashboard</span></p>
 
       <div className="row">
-        <div className="col-8">
+        <div className="col-lg-8">
           <div className="row">
             <div className="col-md-4 col-12">
               <MDBCard style={{ boxShadow: '5px 5px 20px 5px #0129701A' }}>
                 <MDBCardBody >
-                  <MDBCardTitle className='mainHeadings' style={{ color: 'black' }}>Abscent | <span style={{ fontSize: 'small' }}>Today</span></MDBCardTitle>
-                  <MDBCardText>
-                    <div className='d-flex align-items-center justify-content-center'>
-                      < CircleIcon  style={{ color: 'rgb(237, 241, 247)', fontSize: '40px' }} />
-                      <div >
-                        <h3 className='mt-2' style={{ fontWeight: 'bold', color: 'black' }}>145</h3>
-                        <p ><span style={{ fontWeight: 'bold', color: 'black' }}>12% </span>increase</p>
-                      </div>
-                    </div>
-                  </MDBCardText>
-
-                </MDBCardBody>
-              </MDBCard>
-            </div>
-            <div className="col-md-4 col-12">
-              <MDBCard style={{ boxShadow: '5px 5px 20px 5px #0129701A' }}>
-                <MDBCardBody >
-                  <MDBCardTitle className='mainHeadings' style={{ color: 'black' }}>Abscent | <span style={{ fontSize: 'small' }}>Today</span></MDBCardTitle>
-              
+                  {/* <MDBCardTitle className='mainHeadings' style={{ color: 'black' }}>Abscent | <span style={{ fontSize: 'small' }}>Today</span></MDBCardTitle> */}
+                  <h6 style={{ color: 'black', fontWeight: 'bold' }}>Present | <span style={{ fontSize: 'small', fontWeight: 'normal' }}>Today</span></h6>
                   <MDBCardText>
                     <div className='d-flex align-items-center justify-content-center'>
                       < CircleIcon style={{ color: 'rgb(237, 241, 247)', fontSize: '40px' }} />
@@ -179,7 +162,6 @@ function Home() {
                         <p ><span style={{ fontWeight: 'bold', color: 'black' }}>12% </span>increase</p>
                       </div>
                     </div>
-                
                   </MDBCardText>
 
                 </MDBCardBody>
@@ -188,10 +170,30 @@ function Home() {
             <div className="col-md-4 col-12">
               <MDBCard style={{ boxShadow: '5px 5px 20px 5px #0129701A' }}>
                 <MDBCardBody >
-                  <MDBCardTitle className='mainHeadings' style={{ color: 'black' }}>Attendence | <span style={{ fontSize: 'small' }}>Month</span></MDBCardTitle>
+                  {/* <MDBCardTitle className='mainHeadings' style={{ color: 'black' }}>Abscent | <span style={{ fontSize: 'small' }}>Today</span></MDBCardTitle> */}
+                  <h6 style={{ color: 'black', fontWeight: 'bold' }}>Abscent | <span style={{ fontSize: 'small', fontWeight: 'normal' }}>Today</span></h6>
                   <MDBCardText>
                     <div className='d-flex align-items-center justify-content-center'>
-                      < CircleIcon  style={{ color: 'rgb(237, 241, 247)', fontSize: '40px' }} />
+                      < CircleIcon style={{ color: 'rgb(237, 241, 247)', fontSize: '40px' }} />
+                      <div >
+                        <h3 className='mt-2' style={{ fontWeight: 'bold', color: 'black' }}>145</h3>
+                        <p ><span style={{ fontWeight: 'bold', color: 'black' }}>12% </span>increase</p>
+                      </div>
+                    </div>
+
+                  </MDBCardText>
+
+                </MDBCardBody>
+              </MDBCard>
+            </div>
+            <div className="col-md-4 col-12">
+              <MDBCard style={{ boxShadow: '5px 5px 20px 5px #0129701A' }}>
+                <MDBCardBody >
+                  {/* <MDBCardTitle className='mainHeadings' style={{ color: 'black' }}>Attendence | <span style={{ fontSize: 'small' }}>Month</span></MDBCardTitle> */}
+                  <h6 style={{ color: 'black', fontWeight: 'bold' }}>Attendence | <span style={{ fontSize: 'small', fontWeight: 'normal' }}>Month</span></h6>
+                  <MDBCardText>
+                    <div className='d-flex align-items-center justify-content-center'>
+                      < CircleIcon style={{ color: 'rgb(237, 241, 247)', fontSize: '40px' }} />
                       <div >
                         <h3 className='mt-2' style={{ fontWeight: 'bold', color: 'black' }}>145</h3>
                         <p ><span style={{ fontWeight: 'bold', color: 'black' }}>12% </span>increase</p>
@@ -207,24 +209,25 @@ function Home() {
 
         </div>
 
-        <div className="col-md-4 col-12 mt-3 ">
+        <div className="col-lg-4 col-12 mt-4 ">
           <MDBCard className='activityCard' style={{ boxShadow: '5px 5px 20px 5px #0129701A' }} >
 
             <MDBCardBody >
             <MDBCardTitle className='' style={{ color: 'green' }}>Recent Activities | <span style={{ fontSize: 'small', color: 'black' }}>Today</span></MDBCardTitle>
-
-              <MDBCardText>
-              <div className='px-1'>
-               32 min <PiLineVerticalBold size={30} style={{ color: 'rgb(131, 166, 168)' }} /> Created new teacher <br/>
-               56 min <PiLineVerticalBold size={30} style={{ color: 'rgb(131, 166, 168)' }} /> Java Attendence <br/>
-                12 min <PiLineVerticalBold size={30} style={{ color: 'rgb(131, 166, 168)' }} />Mern Attendence
-                12 min <PiLineVerticalBold size={30} style={{ color: 'rgb(131, 166, 168)' }} />Mern Attendence
-              </div>
+       
+              <MDBCardText >
+                <span>
+               <div className='my-1'>32 min <PiLineVerticalBold size={30} style={{ color: 'rgb(131, 166, 168)' }} /> Created new teacher</div> 
+               <div className='my-1'>56 min <PiLineVerticalBold size={30} style={{ color: 'rgb(131, 166, 168)' }} /> Java Attendence </div>
+               12 min <PiLineVerticalBold size={30} style={{ color: 'rgb(131, 166, 168)' }} />Mern Attendence  
+              <span style={{color:'white'}}> 12 min <PiLineVerticalBold size={30}  />Mern Attendence</span>
+               </span>
                     
                   </MDBCardText>
             </MDBCardBody>
           </MDBCard>
-         
+
+
 
 
         </div>
@@ -233,39 +236,43 @@ function Home() {
       </div>
       <div className="row my-2">
         <div className="col-md-8 col-12 ">
-        <MDBCard style={{ boxShadow: '5px 5px 20px 5px #0129701A' }}>
-              <MDBCardBody>
-                <MDBCardTitle className='mainHeading my-2' style={{ color: 'green' }}>
-                  Reports <span style={{ fontSize: 'small', color: 'black' }}> / Today</span>
-                </MDBCardTitle>
-                
-                <div id="chart">
-                  <ReactApexChart options={options} series={series} type="line" height={350} />
-                </div>
-                <div id="html-dist"></div>
+          <MDBCard style={{ boxShadow: '5px 5px 20px 5px #0129701A' }}>
+            <MDBCardBody>
+              <MDBCardTitle className='mainHeading my-2' style={{ color: 'green' }}>
+                Reports <span style={{ fontSize: 'small', color: 'black' }}> / Today</span>
+              </MDBCardTitle>
 
-              </MDBCardBody>
-            </MDBCard>
+              <div id="chart">
+                <ReactApexChart options={options} series={series} type="line" height={350} />
+              </div>
+              <div id="html-dist"></div>
+
+            </MDBCardBody>
+          </MDBCard>
 
         </div>
         <div className="col-md-4 col-12   raderChart">
-         <div>
-         <MDBCardTitle className='my-3' style={{ color: 'green' }}>
-            Attendance Report | <span style={{ fontSize: 'small', color: 'black' }}>This Month</span>
-          </MDBCardTitle>
-          <div style={{ width: '100%', height: 310 }}>
-            <ResponsiveContainer width="90%" height="100%">
-              <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
-                <PolarGrid />
-                <PolarAngleAxis dataKey="subject" />
-                <PolarRadiusAxis angle={30} domain={[0, 150]} />
-                <Radar name="Budget" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
-                <Radar name="Spend" dataKey="B" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6} />
-                <Legend />
-              </RadarChart>
-            </ResponsiveContainer>
+          <div>
+            <MDBCardTitle className='my-3' style={{ color: 'green' }}>
+              Attendance Report | <span style={{ fontSize: 'small', color: 'black' }}>This Month</span>
+            </MDBCardTitle>
+            <MDBCardText>
+              <div style={{ width: '100%', height: 320 }}>
+                <ResponsiveContainer width="90%" height="100%">
+                  <RadarChart cx="50%" cy="50%" outerRadius="80%" data={data}>
+                    <PolarGrid />
+                    <PolarAngleAxis dataKey="subject" />
+                    <PolarRadiusAxis angle={30} domain={[0, 150]} />
+                    <Radar name="Budget" dataKey="A" stroke="#8884d8" fill="#8884d8" fillOpacity={0.6} />
+                    <Radar name="Spend" dataKey="B" stroke="#82ca9d" fill="#82ca9d" fillOpacity={0.6} />
+                    <Legend />
+                  </RadarChart>
+                </ResponsiveContainer>
+              </div>
+
+            </MDBCardText>
+
           </div>
-         </div>
 
         </div>
       </div>
