@@ -5,13 +5,13 @@ import {
   MDBCardBody,
   MDBCardTitle,
   MDBCardText,
-  MDBBtn
+  // MDBBtn
 } from 'mdb-react-ui-kit';
 import CircleIcon from '@mui/icons-material/Circle';
 import { PiLineVerticalBold } from "react-icons/pi";
 import ReactApexChart from 'react-apexcharts';
-import { RxDotFilled } from "react-icons/rx";
-import { GrPhoneVertical } from "react-icons/gr";
+// import { RxDotFilled } from "react-icons/rx";
+// import { GrPhoneVertical } from "react-icons/gr";
 import { Radar, RadarChart, PolarGrid, Legend, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
 
 function Home() {
