@@ -1,3 +1,7 @@
+.conatiner{
+    width: 100%;
+    overflow: hidden;
+}
 .mainRow{
     width: 700px;
 }

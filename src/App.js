@@ -22,6 +22,10 @@ import AddWork from './Pages.jsx/AddWork/AddWork';
 import AddEmployee from './Pages.jsx/AddEmployees/AddEmployee';
 import AttendenceSheet from './Pages.jsx/AttendenceSheet/AttendenceSheet';
 import CoPresentIcon from '@mui/icons-material/CoPresent';
+import Designation from './Pages.jsx/designation/Designation';
+import AddDesignation from './Pages.jsx/AddDesignation/AddDesignation';
+import SpecifiedDesignation from './Pages.jsx/singleDesignation/SpecifiedDesignation';
+import ViewEmployee from './Pages.jsx/viewEmployee/ViewEmployee';
 
 function App() {
 
@@ -58,6 +62,7 @@ function App() {
             { label: <span style={{ fontSize: '16px' }}>MANAGE</span>,disabled: true },     
             { label: <span style={{ fontSize: '16px' }}>Admin</span>, key: '/admin',icon:<CoPresentIcon/> },
             { label: <span style={{ fontSize: '16px' }}>Employees</span>, key: "/employees", icon: <GroupIcon /> },  
+            { label: <span style={{ fontSize: '16px' }}>Designation</span>, key: '/designation',icon:<CoPresentIcon/> },
             { label: <span style={{ fontSize: '16px' }}>Works</span>, key: "/works", icon: <MenuBookIcon /> },   
             { label:  <span style={{ fontSize: '16px' }}>LOGOUT</span>, disabled: true },       
             { label: <span style={{ fontSize: '16px' }}>Logout</span>, key: "Logout", icon: <LoginIcon /> }
@@ -91,9 +96,13 @@ function Content() {
         <Route path='/addAdmin' element={<AddAdmin/>} />
         <Route path='/employees' element={<Employess/>} />
         <Route path='/addEmployee' element={<AddEmployee/>} />
+        <Route path='/employee/edit/:id' element={<ViewEmployee/>} />
         <Route path='/works' element={<Work/>} />
         <Route path='/addWorks' element={<AddWork/>} />
         <Route path='/report' element={<AttendenceSheet/>} />
+        <Route path='/designation' element={<Designation/>} />
+        <Route path='/addDesignation' element={<AddDesignation/>} />
+        <Route path='/designation/:id' element={<SpecifiedDesignation/>} />
       </Routes>
     </div>
   );

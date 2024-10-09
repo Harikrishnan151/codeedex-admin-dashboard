@@ -1,0 +1,16 @@
+.mainHeading{
+    width: 1000px; 
+}
+.add-btn{
+    display: flex;
+    justify-content: end; 
+}
+.headingRow2{
+    display: flex;
+    justify-content: space-between;
+}
+.row-1{
+    background-color: white;
+    border-radius: 12px;
+    width: 980px;
+}

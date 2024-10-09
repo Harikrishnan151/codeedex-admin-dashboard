@@ -13,7 +13,7 @@ import { MDBBtn } from 'mdb-react-ui-kit';
 function AddAdmin() {
     return (
         <div className="container">
-            <h3 style={{color:'black'}} className='mainHeading mx-4 mt-4 '>Admin</h3>
+            <h3 style={{color:'black'}} className='mainHeading mt-4 '>Admin</h3>
             <p className='mainHeading mx-4' style={{ color: '#4F4F4F' }}>Manage / Admin / <span style={{ color: 'black', }}>Add Admin</span></p>
             <div className="row mainRow mx-4">
                 <div className="col-12">
