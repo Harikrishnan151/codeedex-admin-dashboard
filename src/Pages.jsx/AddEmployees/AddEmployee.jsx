@@ -100,10 +100,12 @@ function AddEmployee() {
                                             id="demo-select-small"
                                             value={designation}  
                                             onChange={handleChange}
-                                            // label="Department"
+                                            
 
                                             sx={{ width: '725px' }}
+
                                         >
+                                             
                                             {
                                             designationArr.length>0?designationArr.map((item) => (
                                                 <MenuItem key={item._id} value={item._id}>
