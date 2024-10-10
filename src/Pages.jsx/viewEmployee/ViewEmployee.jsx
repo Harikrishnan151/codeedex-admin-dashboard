@@ -34,7 +34,7 @@ function ViewEmployee() {
     const [designation,setDesignation]=useState('')
 
     const [designationArr, setDesignationArr] = useState([])
-    // const [selectedDesignation, setSelectedDesignation] = useState('');
+    
 
     //Api call to fetch designation
     const getDesignation = async () => {
