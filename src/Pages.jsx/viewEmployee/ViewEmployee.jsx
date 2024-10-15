@@ -8,7 +8,7 @@ import {
 } from 'mdb-react-ui-kit';
 import { MDBInput } from 'mdb-react-ui-kit';
 import { MDBBtn } from 'mdb-react-ui-kit';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { editUser, fetchDesignations, viewUser } from '../../services/allApi';
 
 import Select from '@mui/material/Select';
@@ -166,9 +166,9 @@ function ViewEmployee() {
                                         <MDBBtn type='submit' color='dark'>
                                             Submit
                                         </MDBBtn>
-                                        <MDBBtn className='mx-3' style={{ color: 'white', backgroundColor: "#6C757D" }}>
-                                            Reset
-                                        </MDBBtn>
+                                      <Link to={'/employees'}> <MDBBtn className='mx-3' style={{ color: 'white', backgroundColor: "#6C757D" }}>
+                                            Cancel
+                                        </MDBBtn></Link> 
                                     </div>
                                 </MDBCardText>
                             </form>

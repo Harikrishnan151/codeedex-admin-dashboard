@@ -26,6 +26,8 @@ import Designation from './Pages.jsx/designation/Designation';
 import AddDesignation from './Pages.jsx/AddDesignation/AddDesignation';
 import SpecifiedDesignation from './Pages.jsx/singleDesignation/SpecifiedDesignation';
 import ViewEmployee from './Pages.jsx/viewEmployee/ViewEmployee';
+import EditWorks from './Pages.jsx/EditWork/EditWorks';
+import EditAdmin from './Pages.jsx/EditAdmin/EditAdmin';
 
 function App() {
 
@@ -103,6 +105,8 @@ function Content() {
         <Route path='/designation' element={<Designation/>} />
         <Route path='/addDesignation' element={<AddDesignation/>} />
         <Route path='/designation/:id' element={<SpecifiedDesignation/>} />
+        <Route path='/edit/works/:id' element={<EditWorks/>} />
+        <Route path='/edit/admin/:id' element={<EditAdmin/>} />
       </Routes>
     </div>
   );

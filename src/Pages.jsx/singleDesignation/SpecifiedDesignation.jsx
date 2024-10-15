@@ -9,7 +9,7 @@ import {
 import { MDBInput } from 'mdb-react-ui-kit';
 import { MDBBtn } from 'mdb-react-ui-kit';
 import { MDBTextArea } from 'mdb-react-ui-kit';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { editDesignation, viewDesignation } from '../../services/allApi';
 import Swal from 'sweetalert2';
 
@@ -109,9 +109,9 @@ function SpecifiedDesignation() {
                                     <MDBBtn type='submit'  color='dark'>
                                        Submit
                                     </MDBBtn>
-                                    <MDBBtn className='mx-3' style={{color:'white' ,backgroundColor:"#6C757D"}}>
+                               <Link to={'/designation'}><MDBBtn className='mx-3' style={{color:'white' ,backgroundColor:"#6C757D"}}>
                                         Cancel
-                                    </MDBBtn>
+                                    </MDBBtn></Link> 
                                 </div>
                             </MDBCardText>
                             </form>

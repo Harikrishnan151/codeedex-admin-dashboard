@@ -9,11 +9,12 @@ import InputBase from '@mui/material/InputBase';
 import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
+// import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MailIcon from '@mui/icons-material/Mail';
+// import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import { Link } from 'react-router-dom';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -167,7 +168,7 @@ function Navbar() {
             component="div"
             sx={{ display: { xs: 'none', sm: 'block' }, color: '#000',fontWeight: 'bold',fontSize: '1rem' }} 
           >
-            Codeedex Technolgies
+           <Link to={'/home'} style={{ fontFamily: 'Montserrat, sans-serif', color: 'black', textDecoration: 'none' }}> Codeedex Technolgies</Link>
           </Typography>
           <Search sx={{marginRight:'50px'}} >
               <StyledInputBase

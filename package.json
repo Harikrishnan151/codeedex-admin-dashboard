@@ -16,6 +16,7 @@
     "apexcharts": "^3.53.0",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
+    "jwt-decode": "^4.0.0",
     "mdb-react-ui-kit": "^9.0.0",
     "react": "^18.3.1",
     "react-apexcharts": "^1.4.1",
@@ -57,6 +58,8 @@
     "cross-env": "^7.0.3"
   },
   "babel": {
-    "plugins": ["@babel/plugin-proposal-private-property-in-object"]
+    "plugins": [
+      "@babel/plugin-proposal-private-property-in-object"
+    ]
   }
 }

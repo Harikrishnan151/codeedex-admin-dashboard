@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {  useState } from 'react'
 import './SignIn.css'
 import { MDBInput } from 'mdb-react-ui-kit';
 import { MDBBtn } from 'mdb-react-ui-kit';
@@ -8,15 +8,87 @@ import {
     MDBNavbar,
     MDBNavbarBrand
 } from 'mdb-react-ui-kit';
+import Swal from 'sweetalert2';
 
 import {
     MDBCard,
     MDBCardBody,
 } from 'mdb-react-ui-kit';
 import { MDBCheckbox } from 'mdb-react-ui-kit';
-import { Link } from 'react-router-dom';
-
+import {  useNavigate } from 'react-router-dom';
+import { adminLogin } from '../../services/allApi';
+import { jwtDecode } from "jwt-decode";
 function SignIn() {
+    const [email,setEmail]=useState([])
+    const [password,setPassword]=useState([])
+    const [adminData, setAdminData] = useState(null);
+
+    const navigate=useNavigate()
+
+
+    //Api call for admin login
+    const handleSubmit=async(e)=>{
+        e.preventDefault()
+        const body={email,password}
+        try {
+            if(!email||!password){
+                alert('Please fill all the feilds')
+            }else{
+                const response=await adminLogin(body)
+                console.log(response)
+                if(response.status===200){
+                    if(response.data.token){
+                        const decode =jwtDecode(response.data.token)
+                        setAdminData(decode)
+                        console.log(decode);
+                        localStorage.setItem("token",response.data.token)
+                        localStorage.setItem("adminId",decode.id)
+                        localStorage.setItem("adminName",decode.username)
+                    }
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Login sucessfull',
+                        icon: 'success', 
+                        confirmButtonText: 'OK',
+                      });
+                     
+                      setTimeout(()=>{
+                        navigate('/home')
+                      },200)
+                }else if(response.status===401){
+                    Swal.fire({
+                        title: 'Incorrect Password!',
+                        text: 'Password Enterd is Incorrect',
+                        icon: 'error', 
+                        confirmButtonText: 'OK',
+                      });
+                }else{
+                    Swal.fire({
+                        title: 'Incorrect Username!',
+                        text: 'Username Entered is Incorrect',
+                        icon: 'error', 
+                        confirmButtonText: 'OK',
+                    });
+                }
+
+            }
+        } catch (error) {
+            console.log(error);
+            Swal.fire({
+                title: 'Error!',
+                text: 'Internal Server Error',
+                icon: 'danger', 
+                confirmButtonText: 'OK',
+              });
+            
+        }
+    }
+
+    // useEffect(() => {
+    //     if (adminData) {
+    //       console.log('Admin data updated:', adminData);
+    //     }
+    //   }, [adminData]);
     return (
         <div >
             <MDBNavbar light bgColor='light'>
@@ -32,20 +104,20 @@ function SignIn() {
                     <div className="col-md-6 col-12 my-3">
                         <MDBCard >
                             <MDBCardBody className='signInform'>
-                                <form action="">
+                                <form onSubmit={handleSubmit}>
                                     {/* <div className='card' > */}
                                     <label className='formHeading my-2'>Username</label>
-                                    <MDBInput id="form1" type="text" />
+                                    <MDBInput onChange={(e)=>setEmail(e.target.value)} id="form1" type="text" />
                                     <label className='formHeading my-2'>Password</label>
-                                    <MDBInput id="form1" type="password" />
+                                    <MDBInput onChange={(e)=>setPassword(e.target.value)} id="form1" type="password" />
                                     <div className='my-3'>
                                         <MDBCheckbox color='black' name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
                                     </div>
                                     <div>
-                                        <Link to={'/home'}>
-                                        <MDBBtn size='sm' color='dark'>
+                                       
+                                        <MDBBtn type='submit' size='sm' color='dark'>
                                             Sign In
-                                        </MDBBtn></Link>
+                                        </MDBBtn>
                                     </div>
 
                                     {/* </div> */}

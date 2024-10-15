@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Work.css'
 import { MDBBtn } from 'mdb-react-ui-kit';
 import { Link } from 'react-router-dom';
@@ -6,12 +6,73 @@ import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import { MDBInput } from 'mdb-react-ui-kit';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { allWorks, deleteWorks } from '../../services/allApi';
+import Swal from 'sweetalert2';
+
 function Work() {
+    const [works, setWorks] = useState([])
+// Api call to fetch all works
+    const fetchWorks = async () => {
+        const token = localStorage.getItem("token")
+        const headers = {
+            Authorization: `Bearer ${token}`
+        }
+        const response = await allWorks(headers)
+        console.log(response);
+        setWorks(response.data.data)
+
+    }
+    console.log(works);
+
+
+    //Api call to delete works
+    const handleDelete=async(id)=>{
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+              try {
+                // Api call to delete
+                const token=localStorage.getItem("token")
+                const headers={
+                    Authorization: `Bearer ${token}`
+                }
+                const response = await deleteWorks(id,headers);
+                console.log(response);
+                if (response.status === 200) {
+                  Swal.fire({
+                    title: "Deleted!",
+                    text: "The work has been deleted.",
+                    icon: "success"
+                  });
+                  fetchWorks()
+                }
+              } catch (error) {
+                Swal.fire({
+                  title: "Error!",
+                  text: "There was an error deleting the works.",
+                  icon: "error"
+                });
+              }
+            }
+          });
+
+    }
+
+    useEffect(() => {
+        fetchWorks()
+    }, [])
     return (
         <div className="container">
             <div className='row workRow1'>
                 <div className="col-6">
-                    <h3 style={{color:'black'}} className='mainHeading mx-4 mt-4 '>Works</h3>
+                    <h3 style={{ color: 'black' }} className='mainHeading mx-4 mt-4 '>Works</h3>
                     <p className='mainHeading mx-4' style={{ color: '#4F4F4F' }}>Manage / <span style={{ color: 'black', }}>Work</span></p>
 
                 </div>
@@ -26,7 +87,7 @@ function Work() {
 
             <div className="row row1 mx-2 my-2">
                 <div className="col-12 my-3 headingRow2">
-                    <h5 className='mainHeading' style={{ fontWeight: "bold",color:"black" }}>Current Works</h5>
+                    <h5 className='mainHeading' style={{ fontWeight: "bold", color: "black" }}>Current Works</h5>
                     <div>
                         <MDBInput label="Search" id="form1" type="text" />
                     </div>
@@ -38,33 +99,37 @@ function Work() {
                                 <th style={{ fontWeight: 'bold' }} scope='col'>#</th>
                                 <th style={{ fontWeight: 'bold' }} scope='col'>Work Name</th>
                                 <th style={{ fontWeight: 'bold' }} scope='col'>Department</th>
-                                <th style={{ fontWeight: 'bold' }} scope='col'>Period</th>
+                                <th style={{ fontWeight: 'bold' }} scope='col'>Assigned to</th>
                                 <th style={{ fontWeight: 'bold' }} scope='col'>Assigned Admin</th>
-                                <th style={{ fontWeight: 'bold' }} scope='col'>Action</th>
+                                <th style={{ fontWeight: 'bold' }} scope='col'>Deadline</th>
+                                <th style={{ fontWeight: 'bold' }} scope='col'>Status</th>
+                                <th style={{ fontWeight: 'bold' }} scope='col'>Edit</th>
+                                <th style={{ fontWeight: 'bold' }} scope='col'>Delete</th>
                             </tr>
                         </MDBTableHead>
                         <MDBTableBody>
-                            <tr>
-                                <th scope='row'>1</th>
-                                <td>Mark</td>
-                                <td>Python</td>
-                                <td>mark@gmail.com</td>
-                                <td>@mdo</td>
-                                <td><button className='btns' ><BorderColorIcon /></button>
-                                    <button className='btns' style={{ color: 'red' }}> < DeleteIcon /></button>
-                                </td>
 
-                            </tr>
-                            <tr>
-                                <th scope='row'>2</th>
-                                <td>Jacob</td>
-                                <td>MERN</td>
-                                <td>jacob@gmail.com</td>
-                                <td>@fat</td>
-                                <td><button className='btns' ><BorderColorIcon /></button>
-                                    <button className='btns' style={{ color: 'red' }}> < DeleteIcon /></button>
-                                </td>
-                            </tr>
+                            {
+                                works.length > 0 ? works.map((workData, index) => (
+                                    <tr key={index}>
+                                        <th scope='row'>{index + 1}</th>
+                                        <td>{workData.workName}</td>
+                                        <td>{workData.designation.title}</td>
+                                        <td>
+                                            {workData.assignedTo
+                                                .map((assigned) => assigned.employee.username)
+                                                .join(', ')}
+                                        </td>
+                                        <td>{workData.admin.email}</td>
+                                        <td>{workData.deadline.slice(8,10)}{workData.deadline.slice(4,8)}{workData.deadline.slice(0,4)}</td>
+                                        <td>{workData.status}</td>
+                                        <td><button className='btns mx-1' ><Link to={`/edit/works/${workData._id}`}> <BorderColorIcon /></Link></button>
+
+                                        </td>
+                                        <td>   <button className='btns ' onClick={()=>handleDelete(workData._id)} style={{ color: 'red' }}> < DeleteIcon /></button></td>
+                                    </tr>
+                                )) : "No Wokrs Found"
+                            }
 
                         </MDBTableBody>
                     </MDBTable>

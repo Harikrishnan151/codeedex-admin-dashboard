@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import './Admin.css'
 import { MDBBtn } from 'mdb-react-ui-kit';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
@@ -6,7 +6,51 @@ import { MDBInput } from 'mdb-react-ui-kit';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Link } from 'react-router-dom';
+import { allAdmins, deleteAdmin } from '../../services/allApi';
+import Swal from 'sweetalert2';
+
 function Admin() {
+
+    const [admin,setAdmin]=useState([])
+
+    //Api call to get all admin
+    const getAllAdmin=async()=>{
+        const response=await allAdmins()
+        console.log(response.data);
+        setAdmin(response.data)
+        
+    }
+    console.log(admin);
+
+    //Api call to delete admn
+    const handleDelete=async(id)=>{
+       try {
+        const response=await deleteAdmin(id)
+        console.log(response);
+        Swal.fire({
+            title: 'Success!',
+            text: 'Admin deleted sucessfully',
+            icon: 'success', 
+            confirmButtonText: 'OK',
+          });
+        getAllAdmin()
+        
+        
+       } catch (error) {
+        Swal.fire({
+            title: 'Faild!',
+            text: 'Faild to delete admin',
+            icon: 'danger', 
+            confirmButtonText: 'OK',
+          });
+        
+       }
+    }
+    
+
+    useEffect(()=>{
+        getAllAdmin()
+    },[])
     return (
         <div className="container">
             <div className='row headingrow'>
@@ -40,57 +84,30 @@ function Admin() {
                                 <th style={{ fontWeight: 'bold' }} scope='col'>Address</th>
                                 <th style={{ fontWeight: 'bold' }} scope='col'>Email</th>
                                 <th style={{ fontWeight: 'bold' }} scope='col'>Username</th>
-                                <th style={{ fontWeight: 'bold' }} scope='col'>Password</th>
-                                <th style={{ fontWeight: 'bold' }} scope='col'>Action</th>
+                                <th style={{ fontWeight: 'bold' }} scope='col'>AdminCode</th>
+                                <th style={{ fontWeight: 'bold' }} scope='col'>Edit</th>
+                                <th style={{ fontWeight: 'bold' }} scope='col'>Delete</th>
                             </tr>
                         </MDBTableHead>
                         <MDBTableBody>
-                            <tr>
-                                <th scope='row'>1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>mark@gmail</td>
-                                <td>mark.1</td>
-                                <td>@mdo</td>
-                                <td><button className='btns' ><BorderColorIcon /></button>
-                                    <button className='btns' style={{ color: 'red' }}> < DeleteIcon /></button>
-                                </td>
 
-                            </tr>
-                            <tr>
-                                <th scope='row'>2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                <td>jacobps</td>
-                                <td>@fat</td>
-                                <td><button className='btns' ><BorderColorIcon /></button>
-                                    <button className='btns' style={{ color: 'red' }}> < DeleteIcon /></button>
+                           {
+                           admin && admin.length>0?admin.map((adminData,index)=>(
+                                <tr key={index}>
+                                <th scope='row'>{index+1}</th>
+                                <td>{adminData.fullName}</td>
+                                <td>{adminData.address}</td>
+                                <td>{adminData.email}</td>
+                                <td>{adminData.username}</td>
+                                <td>{adminData.adminCode}</td>
+                                <td> <Link to={`/edit/admin/${adminData._id}`}> <button className='btns' ><BorderColorIcon /></button></Link></td>
+                                <td>
+                                 
+                                    <button onClick={()=>handleDelete(adminData._id)} className='btns' style={{ color: 'red' }}> < DeleteIcon /></button>
                                 </td>
                             </tr>
-
-                            <tr>
-                                <th scope='row'>3</th>
-                                <td>Jerin</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                <td>jerinjosh</td>
-                                <td>@jer</td>
-                                <td><button className='btns' ><BorderColorIcon /></button>
-                                    <button className='btns' style={{ color: 'red' }}> < DeleteIcon /></button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <th scope='row'>4</th>
-                                <td>Edwin</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                <td>edwincr</td>
-                                <td>@edu</td>
-                                <td><button className='btns' ><BorderColorIcon /></button>
-                                    <button className='btns' style={{ color: 'red' }}> < DeleteIcon /></button>
-                                </td>
-                            </tr>
+                            )):'No Admin data found'
+                           }
                             
 
                         </MDBTableBody>

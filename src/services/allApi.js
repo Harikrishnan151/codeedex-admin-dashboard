@@ -51,3 +51,58 @@ export const deleteUser=async(id)=>{
 export const addUser=async(body)=>{
     return commonRequest("POST",`${BaseUrl}users/`,body)
 }
+
+//Api to get all admin
+export const allAdmins=async()=>{
+  return commonRequest("GET",`${BaseUrl}admin/`)
+}
+
+//Api call to add admin
+export const addAdmin=async(body)=>{
+    return commonRequest("POST",`${BaseUrl}admin/`,body)
+}
+
+//Api call to delete admin
+export const deleteAdmin=async(id)=>{
+    return commonRequest("DELETE",`${BaseUrl}admin/${id}`)
+}
+
+//Api call to view admin
+export const viewAdmin=async(id)=>{
+    return commonRequest("GET",`${BaseUrl}admin/${id}`)
+}
+
+//Api call to edit admin details
+export const editAdmin=async(id,body)=>{
+    return commonRequest("PUT",`${BaseUrl}admin/${id}`,body)
+}
+
+//Api call for admin login
+export const adminLogin=async(body)=>{
+    return commonRequest("POST",`${BaseUrl}auth/admin/login`,body)
+}
+
+//Api call to get all works
+export const allWorks=async(header)=>{
+    return commonRequest("GET",`${BaseUrl}admin-works/`,"",header)
+}
+
+//Api call to view works
+export const viewWorks=async(id,headers)=>{
+    return commonRequest("GET",`${BaseUrl}admin-works/${id}`,"",headers)
+}
+
+//Api call to delete works
+export const deleteWorks=async(id,headers)=>{
+    return commonRequest("DELETE",`${BaseUrl}admin-works/delete/${id}`,"",headers)
+}
+
+//Api call to add work
+export const addWork=async(body,header)=>{
+    return commonRequest("POST",`${BaseUrl}admin-works/create`,body,header)
+}
+
+//Api call to edit works
+export const editWorks=async(id,body,headers)=>{
+    return commonRequest("PUT",`${BaseUrl}admin-works/edit/${id}`,body,headers)
+}
