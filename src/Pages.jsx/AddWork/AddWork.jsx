@@ -13,6 +13,8 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
+import Swal from 'sweetalert2';
+import { useNavigate } from 'react-router-dom';
 
 
 function AddWork() {
@@ -29,7 +31,9 @@ function AddWork() {
 
     const [workName, setWorkName] = useState([])
     const [deadline, setDeadline] = useState([])
-
+     
+    //navigate
+    const navigate=useNavigate()
 
     //Api call to fetch designation
     const getDesignation = async () => {
@@ -77,6 +81,17 @@ function AddWork() {
        }else{
          const response=await addWork(body,headers)
          console.log(response);
+         if(response.status===201){
+            Swal.fire({
+                title: 'Success!',
+                text: 'Work added sucessfully',
+                icon: 'success', 
+                confirmButtonText: 'OK',
+              });
+              setTimeout(()=>{
+               navigate('/works')
+              },2000)
+        }
          
        }
     }
@@ -98,7 +113,7 @@ function AddWork() {
                             <form onSubmit={addWorks}>
                                 <MDBCardText>
                                     <label className='formHeading my-2'>Work Name</label>
-                                    <MDBInput onChange={(e)=>setWorkName(e.target.value)} id="form1" type="text" />
+                                    <MDBInput onChange={(e)=>setWorkName(e.target.value)} id="form1" type="text" required />
                                     <label className='formHeading my-2'>Designation</label>
                                     <div>
                                         <FormControl sx={{ minWidth: 200 }} size="small">
@@ -108,7 +123,7 @@ function AddWork() {
                                                 id="demo-select-small"
                                                 value={designation}
                                                 onChange={handleChange}
-
+                                                required
 
                                                 sx={{ width: '625px' }}
 
@@ -135,7 +150,7 @@ function AddWork() {
                                                 multiple 
                                                 value={assignedTo}
                                                 onChange={handleEmployees}
-
+                                                required
 
                                                 sx={{ width: '625px' }}
 
@@ -151,7 +166,7 @@ function AddWork() {
                                         </FormControl>
                                     </div>
                                     <label className='formHeading my-2'>Deadline</label>
-                                    <MDBInput onChange={(e)=>setDeadline(e.target.value)} id="form1" type="date" />
+                                    <MDBInput onChange={(e)=>setDeadline(e.target.value)} id="form1" type="date" required/>
                                     <label className='formHeading my-2'>Admin</label>
                                     <MDBInput value={adminName} id="form1" type="text" />
                                     <div className='my-3 '>

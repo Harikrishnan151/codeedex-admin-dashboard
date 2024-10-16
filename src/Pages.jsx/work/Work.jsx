@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
 
 function Work() {
     const [works, setWorks] = useState([])
-// Api call to fetch all works
+    // Api call to fetch all works
     const fetchWorks = async () => {
         const token = localStorage.getItem("token")
         const headers = {
@@ -26,7 +26,7 @@ function Work() {
 
 
     //Api call to delete works
-    const handleDelete=async(id)=>{
+    const handleDelete = async (id) => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -35,33 +35,33 @@ function Work() {
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
             confirmButtonText: "Yes, delete it!"
-          }).then(async (result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
-              try {
-                // Api call to delete
-                const token=localStorage.getItem("token")
-                const headers={
-                    Authorization: `Bearer ${token}`
+                try {
+                    // Api call to delete
+                    const token = localStorage.getItem("token")
+                    const headers = {
+                        Authorization: `Bearer ${token}`
+                    }
+                    const response = await deleteWorks(id, headers);
+                    console.log(response);
+                    if (response.status === 200) {
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "The work has been deleted.",
+                            icon: "success"
+                        });
+                        fetchWorks()
+                    }
+                } catch (error) {
+                    Swal.fire({
+                        title: "Error!",
+                        text: "There was an error deleting the works.",
+                        icon: "error"
+                    });
                 }
-                const response = await deleteWorks(id,headers);
-                console.log(response);
-                if (response.status === 200) {
-                  Swal.fire({
-                    title: "Deleted!",
-                    text: "The work has been deleted.",
-                    icon: "success"
-                  });
-                  fetchWorks()
-                }
-              } catch (error) {
-                Swal.fire({
-                  title: "Error!",
-                  text: "There was an error deleting the works.",
-                  icon: "error"
-                });
-              }
             }
-          });
+        });
 
     }
 
@@ -117,16 +117,17 @@ function Work() {
                                         <td>{workData.designation.title}</td>
                                         <td>
                                             {workData.assignedTo
+                                                .filter((assigned) => assigned && assigned.employee && assigned.employee.username)
                                                 .map((assigned) => assigned.employee.username)
                                                 .join(', ')}
                                         </td>
                                         <td>{workData.admin.email}</td>
-                                        <td>{workData.deadline.slice(8,10)}{workData.deadline.slice(4,8)}{workData.deadline.slice(0,4)}</td>
+                                        <td>{workData.deadline.slice(8, 10)}{workData.deadline.slice(4, 8)}{workData.deadline.slice(0, 4)}</td>
                                         <td>{workData.status}</td>
                                         <td><button className='btns mx-1' ><Link to={`/edit/works/${workData._id}`}> <BorderColorIcon /></Link></button>
 
                                         </td>
-                                        <td>   <button className='btns ' onClick={()=>handleDelete(workData._id)} style={{ color: 'red' }}> < DeleteIcon /></button></td>
+                                        <td>   <button className='btns ' onClick={() => handleDelete(workData._id)} style={{ color: 'red' }}> < DeleteIcon /></button></td>
                                     </tr>
                                 )) : "No Wokrs Found"
                             }
