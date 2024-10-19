@@ -30,7 +30,11 @@ function EditAdmin() {
 
     //Api call to view admin
     const getAdminData=async()=>{
-        const response=await viewAdmin(id)
+        const token=localStorage.getItem("token")
+        const headers={
+            Authorization: `Bearer ${token}`
+        }
+        const response=await viewAdmin(id,headers)
         console.log(response.data);
         setFormData({
             fullName:response.data.fullName||"",
@@ -59,7 +63,11 @@ function EditAdmin() {
         const body=formData
         console.log(body);
         try {
-          const response=await editAdmin(id,body) 
+            const token=localStorage.getItem("token")
+        const headers={
+            Authorization: `Bearer ${token}`
+        }
+          const response=await editAdmin(id,body,headers) 
           console.log(response) 
           if(response.status===200){
             Swal.fire({

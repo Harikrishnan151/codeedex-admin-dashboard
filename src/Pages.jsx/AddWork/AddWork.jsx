@@ -37,7 +37,11 @@ function AddWork() {
 
     //Api call to fetch designation
     const getDesignation = async () => {
-        const response = await fetchDesignations()
+        const token=localStorage.getItem("token")
+        const headers={
+            Authorization: `Bearer ${token}`
+        }
+        const response = await fetchDesignations(headers)
         console.log(response.data);
         setDesignationArr(response.data)
     }
@@ -51,7 +55,11 @@ function AddWork() {
 
     //Api call to fetch employee
     const fetchEmployees = async () => {
-        const response = await allUsers()
+        const token=localStorage.getItem("token")
+        const headers={
+            Authorization: `Bearer ${token}`
+        }
+        const response = await allUsers(headers)
         console.log(response.data);
         setEmployeeArr(response.data)
 

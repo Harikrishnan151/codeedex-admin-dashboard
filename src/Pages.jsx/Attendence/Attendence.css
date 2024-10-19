@@ -2,10 +2,30 @@
     background-color: white;
     border-radius: 12px;
     width: 980px;
+    height: 89px;
+}
+.attendencerow2{
+    background-color: white;
+    border-radius: 12px;
+    width: 980px;
 }
 .addBtn{
     justify-content: end;
 }
 .mainHeading{
     font-family: "Montserrat", sans-serif;
+}
+.req-btn{
+    display: flex;
+    justify-content: space-around; 
+    
+}
+.box-Heading{
+    font-family: "Montserrat", sans-serif;  
+}
+.attendenceTodayBtn{
+    display: flex;
+    /* justify-content: space-between; */
+    /* align-items: end; */
+    
 }

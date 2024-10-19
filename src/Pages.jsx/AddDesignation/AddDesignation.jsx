@@ -26,7 +26,11 @@ function AddDesignation() {
         if(!title||!description){
             alert('All feilds required')
         }else{
-            const response=await addDesignation(body)
+        const token = localStorage.getItem("token")
+        const headers = {
+            Authorization: `Bearer ${token}`
+        }
+            const response=await addDesignation(body,headers)
             console.log(response.data);
             if(response.status===201){
                 Swal.fire({

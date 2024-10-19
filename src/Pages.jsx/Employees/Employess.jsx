@@ -16,7 +16,11 @@ function Employess() {
 
     //api call to fetch users
     const fetchUsers=async()=>{
-        const response=await allUsers()
+      const token = localStorage.getItem("token")
+        const headers = {
+            Authorization: `Bearer ${token}`
+        }
+        const response=await allUsers(headers)
         console.log(response.data);
         setUsers(response.data)
         
@@ -24,7 +28,9 @@ function Employess() {
     console.log(users);
 
     //search
-    const data=users.filter(item=>item.name.toLowerCase().includes(search.toLowerCase()))
+    // const data=users.filter(item=>item.name.toLowerCase().includes(search.toLowerCase()))
+    const data = Array.isArray(users) ? users.filter(item => item.name.toLowerCase().includes(search.toLowerCase())) : [];
+
 
     //Api to delete user details
     const handleDelete = async (id) => {
@@ -40,7 +46,11 @@ function Employess() {
           if (result.isConfirmed) {
             try {
               // Api call to delete
-              const response = await deleteUser(id);
+              const token=localStorage.getItem("token")
+        const headers={
+            Authorization: `Bearer ${token}`
+        }
+              const response = await deleteUser(id,headers);
               console.log(response);
               if (response.status === 200) {
                 Swal.fire({
@@ -107,7 +117,7 @@ function Employess() {
                         </MDBTableHead>
                         <MDBTableBody>
                            {
-                            users.length>0?data.map((employee,index)=>(
+                           users && users.length>0?data.map((employee,index)=>(
                                 <tr key={index}>
                                 <th scope='row'>{index+1}</th>
                                 <td>{employee.name}</td>

@@ -28,7 +28,11 @@ function SpecifiedDesignation() {
     //Api call to fetch specified designation
     const getSpecifiedDesignation = async () => {
         try {
-            const response = await viewDesignation(id);
+            const token = localStorage.getItem("token")
+        const headers = {
+            Authorization: `Bearer ${token}`
+        }
+            const response = await viewDesignation(id,headers);
             console.log("Full API Response:", response.data);
 
             if (response.data && response.data.length > 0) {
@@ -60,7 +64,11 @@ function SpecifiedDesignation() {
         e.preventDefault()
         const body=formData;
         console.log(body);
-        const response=await editDesignation(id,body)
+        const token = localStorage.getItem("token")
+        const headers = {
+            Authorization: `Bearer ${token}`
+        }
+        const response=await editDesignation(id,body,headers)
         console.log(response);
         if(response.status===200){
             Swal.fire({

@@ -1,0 +1,12 @@
+.heading{
+    font-family: "Montserrat", sans-serif; 
+}
+.box-Heading{
+    font-family: "Montserrat", sans-serif;  
+}
+.approveBtn{
+    display: flex;
+    justify-content: center;
+    text-align: end;
+    color: black;
+}

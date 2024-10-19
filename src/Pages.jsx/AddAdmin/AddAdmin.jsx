@@ -23,13 +23,18 @@ function AddAdmin() {
 
     const navigate=useNavigate()
 
+//Api call to add admin
     const handleSubmit=async(e)=>{
       e.preventDefault()
       const body={fullName,username,email,password,address}
       if(!fullName||!username||!email||!password||!address){
         alert('All feilds required')
       }else{
-        const response=await addAdmin(body)
+        const token=localStorage.getItem("token")
+        const headers={
+            Authorization: `Bearer ${token}`
+        }
+        const response=await addAdmin(body,headers)
         console.log(response);
         if(response.status===201){
             Swal.fire({

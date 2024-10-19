@@ -28,6 +28,9 @@ import SpecifiedDesignation from './Pages.jsx/singleDesignation/SpecifiedDesigna
 import ViewEmployee from './Pages.jsx/viewEmployee/ViewEmployee';
 import EditWorks from './Pages.jsx/EditWork/EditWorks';
 import EditAdmin from './Pages.jsx/EditAdmin/EditAdmin';
+import AttendenceRequest from './Pages.jsx/Attendence Request/AttendenceRequest';
+import ApprovedAttendenceReq from './Pages.jsx/ApprovedAttendenceReq/ApprovedAttendenceReq';
+import RejectedAttendenceReq from './Pages.jsx/RejectedAttendenceReq/RejectedAttendenceReq';
 
 function App() {
 
@@ -54,7 +57,7 @@ function App() {
             } else {
               navigate(key);
             }
-          }}  style={{ width: 215, height:"810px" }}
+          }}  style={{ width: 215, height:"1200px" }}
           items={[
             { label: <span style={{ fontSize: '16px' }}>Dashboard</span>, icon: <AirplayIcon />, key: "/home" },
             { label: <span style={{ fontSize: '16px' }}>ANALYSE</span>,disabled: true }, 
@@ -107,6 +110,9 @@ function Content() {
         <Route path='/designation/:id' element={<SpecifiedDesignation/>} />
         <Route path='/edit/works/:id' element={<EditWorks/>} />
         <Route path='/edit/admin/:id' element={<EditAdmin/>} />
+        <Route path='/attendence/requests' element={<AttendenceRequest/>} />
+        <Route path='/attendence/approved/requets' element={<ApprovedAttendenceReq/>} />
+        <Route path='/attendence/rejected/requets' element={<RejectedAttendenceReq/>} />
       </Routes>
     </div>
   );

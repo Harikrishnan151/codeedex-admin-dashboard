@@ -38,7 +38,11 @@ function ViewEmployee() {
 
     //Api call to fetch designation
     const getDesignation = async () => {
-        const response = await fetchDesignations()
+        const token=localStorage.getItem("token")
+        const headers={
+            Authorization: `Bearer ${token}`
+        }
+        const response = await fetchDesignations(headers)
         console.log(response.data);
         setDesignationArr(response.data)
     }
@@ -52,7 +56,11 @@ function ViewEmployee() {
 
     //api call to view user
     const fetchUserDetails = async () => {
-        const response = await viewUser(id)
+        const token = localStorage.getItem("token")
+        const headers = {
+            Authorization: `Bearer ${token}`
+        }
+        const response = await viewUser(id,headers)
         console.log(response);
         setUserData({
             name: response.data.name || "",
@@ -83,8 +91,12 @@ function ViewEmployee() {
             ...userData,
             designation: designation 
         };
+        const token = localStorage.getItem("token")
+        const headers = {
+            Authorization: `Bearer ${token}`
+        }
         console.log(updatedUserData);
-        const response = await editUser(id,updatedUserData)
+        const response = await editUser(id,updatedUserData,headers)
         console.log(response);
         if(response.status===200){
             Swal.fire({
@@ -145,7 +157,7 @@ function ViewEmployee() {
                                             >
                                                
                                                 {
-                                                    designationArr.length > 0 ? designationArr.map((item) => (
+                                                 designationArr &&  designationArr.length > 0 ? designationArr.map((item) => (
                                                         <MenuItem key={item._id} value={item._id}>
                                                             {item.title}
                                                         </MenuItem>

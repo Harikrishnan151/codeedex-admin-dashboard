@@ -15,7 +15,11 @@ function Admin() {
 
     //Api call to get all admin
     const getAllAdmin=async()=>{
-        const response=await allAdmins()
+        const token=localStorage.getItem("token")
+        const headers={
+            Authorization: `Bearer ${token}`
+        }
+        const response=await allAdmins(headers)
         console.log(response.data);
         setAdmin(response.data)
         
@@ -25,7 +29,11 @@ function Admin() {
     //Api call to delete admn
     const handleDelete=async(id)=>{
        try {
-        const response=await deleteAdmin(id)
+        const token=localStorage.getItem("token")
+        const headers={
+            Authorization: `Bearer ${token}`
+        }
+        const response=await deleteAdmin(id,headers)
         console.log(response);
         Swal.fire({
             title: 'Success!',

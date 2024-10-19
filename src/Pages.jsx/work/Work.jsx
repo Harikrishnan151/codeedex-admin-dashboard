@@ -65,6 +65,10 @@ function Work() {
 
     }
 
+    //search
+    const [search,setSearch]=useState('')
+    const data = Array.isArray(works) ? works.filter(item => item.workName.toLowerCase().includes(search.toLowerCase())) : [];
+
     useEffect(() => {
         fetchWorks()
     }, [])
@@ -89,7 +93,7 @@ function Work() {
                 <div className="col-12 my-3 headingRow2">
                     <h5 className='mainHeading' style={{ fontWeight: "bold", color: "black" }}>Current Works</h5>
                     <div>
-                        <MDBInput label="Search" id="form1" type="text" />
+                        <MDBInput onChange={(e)=>setSearch(e.target.value)} label="Search" id="form1" type="text" />
                     </div>
                 </div>
                 <div className="col-12 my-2">
@@ -110,7 +114,7 @@ function Work() {
                         <MDBTableBody>
 
                             {
-                                works.length > 0 ? works.map((workData, index) => (
+                            works && works.length > 0 ? data.map((workData, index) => (
                                     <tr key={index}>
                                         <th scope='row'>{index + 1}</th>
                                         <td>{workData.workName}</td>

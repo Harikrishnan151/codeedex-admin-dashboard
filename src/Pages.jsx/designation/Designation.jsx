@@ -16,7 +16,11 @@ function Designation() {
 
     //Api call to fetch designation
     const getDesignation=async()=>{
-        const response=await fetchDesignations()
+      const token = localStorage.getItem("token")
+        const headers = {
+            Authorization: `Bearer ${token}`
+        }
+        const response=await fetchDesignations(headers)
         console.log(response.data);
         setDesignation(response.data)
     }
@@ -36,7 +40,11 @@ function Designation() {
         if (result.isConfirmed) {
           try {
             // Api call to delete
-            const response = await deleteDesignation(id);
+            const token = localStorage.getItem("token")
+        const headers = {
+            Authorization: `Bearer ${token}`
+        }
+            const response = await deleteDesignation(id,headers);
             console.log(response);
             if (response.status === 200) {
               Swal.fire({
@@ -59,8 +67,8 @@ function Designation() {
     };
 
     //search product 
-    const data=designation.filter(item=>item.title.toLowerCase().includes(search.toLowerCase()))
-    
+    // const data=designation.filter(item=>item.title.toLowerCase().includes(search.toLowerCase()))
+    const data = Array.isArray(designation) ? designation.filter(item => item.title.toLowerCase().includes(search.toLowerCase())) : [];
     
 
     useEffect(()=>{
@@ -102,7 +110,8 @@ function Designation() {
                             </tr>
                         </MDBTableHead>
                         <MDBTableBody>
-                           {designation.length>0?data.map((designationItems,index)=>(
+                           {
+                          designation && designation.length>0?data.map((designationItems,index)=>(
                                 <tr key={index}>
                                 <th scope='row'>{index+1}</th>
                                 <td>{designationItems.title}</td>

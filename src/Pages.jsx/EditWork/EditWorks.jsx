@@ -26,45 +26,51 @@ function EditWorks() {
         deadline: ""
     })
 
-//designation
+    //designation
     const [designation, setDesignation] = useState('')
 
     const [designationArr, setDesignationArr] = useState([])
-  
+
     //employees
     const [employeeArr, setEmployeeArr] = useState([]);
     const [assignedTo, setAssignedTo] = useState([])
 
     //navigate
-    const navigate=useNavigate()
+    const navigate = useNavigate()
 
     //Api call to view works
     const fetchWorks = async () => {
-        const token = localStorage.getItem("token")
+        const token = localStorage.getItem("token");
         const headers = {
-            Authorization: `Bearer ${token}`
-        }
-        const response = await viewWorks(id, headers)
-        console.log(response);
-        setWork({
-            workName: response.data.data.workName || "",
-            deadline: response.data.data.deadline || ""
-        })
-        // setAssignedTo(response.data.data.assignedTo.map(item => item.employee));
-        const assignedEmployees = response.data.data.assignedTo.map(item => ({
-            employee: item.employee._id // Assuming you're using _id to reference the employee
-        }));
-        setAssignedTo(assignedEmployees)
-
-        setDesignation(response.data.data.designation._id || ""); 
-        
+            Authorization: `Bearer ${token}`,
+        };
+        try {
+            const response = await viewWorks(id, headers);
+            console.log(response);
     
-      
+            setWork({
+                workName: response.data.data.workName || "",
+                deadline: response.data.data.deadline || "",
+            });
+    
+            // Check if assignedTo exists and is an array before mapping
+            const assignedEmployees = Array.isArray(response.data.data.assignedTo)
+                ? response.data.data.assignedTo.map((item) => ({
+                    employee: item?.employee?._id || "", 
+                }))
+                : [];
+    
+            setAssignedTo(assignedEmployees);
+    
+            setDesignation(response.data.data.designation?._id || ""); 
+        } catch (error) {
+            console.error('Error fetching work details:', error);
+        }
+    
         console.log(assignedTo);
-        
         console.log(work);
-
-    }
+    };
+    
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -76,7 +82,11 @@ function EditWorks() {
 
     //Api call to fetch designation
     const getDesignation = async () => {
-        const response = await fetchDesignations()
+        const token = localStorage.getItem("token")
+        const headers = {
+            Authorization: `Bearer ${token}`
+        }
+        const response = await fetchDesignations(headers)
         console.log(response.data);
         setDesignationArr(response.data)
     }
@@ -88,60 +98,61 @@ function EditWorks() {
         console.log('Selected _id:', event.target.value);
     };
 
-        //Api call to fetch employee
-        const fetchEmployees = async () => {
-            const response = await allUsers()
-            console.log(response.data);
-            setEmployeeArr(response.data)
-    
+    //Api call to fetch employee
+    const fetchEmployees = async () => {
+        const token = localStorage.getItem("token")
+        const headers = {
+            Authorization: `Bearer ${token}`
         }
-        console.log(employeeArr);
-    
-        // To get value of employees from selection tag
-        const handleEmployees = (event) => {
-            const selectedValues = event.target.value; 
-            const formattedAssignedTo = selectedValues.map(id => ({ employee: id })); 
-            setAssignedTo(formattedAssignedTo); // Set the formatted structure
-            console.log('Selected employees:', formattedAssignedTo); 
-        };
-        
-     
-        
+        const response = await allUsers(headers)
+        console.log(response.data);
+        setEmployeeArr(response.data)
 
-        //Api call to edit works
-        const editUserWorks=async(e)=>{
-            e.preventDefault()
-            try {
-                const body={
-                   ...work,
-                    designation:designation,
-                    assignedTo:assignedTo
-                }
-                console.log(body);
-                const token=localStorage.getItem("token")
-                const headers={
-                    Authorization: `Bearer ${token}`
-                }
-                const response=await editWorks(id,body,headers)
-                console.log(response);
-                if(response.status===200){
-                    Swal.fire({
-                        title: 'Success!',
-                        text: 'Admin details edited sucessfully',
-                        icon: 'success', 
-                        confirmButtonText: 'OK',
-                      });
-                      setTimeout(()=>{
-                       navigate('/works')
-                      },2000)
-                }
-                
-                
-            } catch (error) {
-                alert('Internal server error')
+    }
+    console.log(employeeArr);
+
+    // To get value of employees from selection tag
+    const handleEmployees = (event) => {
+        const selectedValues = event.target.value;
+        const formattedAssignedTo = selectedValues.map(id => ({ employee: id }));
+        setAssignedTo(formattedAssignedTo); // Set the formatted structure
+        console.log('Selected employees:', formattedAssignedTo);
+    };
+
+    //Api call to edit works
+    const editUserWorks = async (e) => {
+        e.preventDefault()
+        try {
+            const body = {
+                ...work,
+                designation: designation,
+                assignedTo: assignedTo
             }
-            
+            console.log(body);
+            const token = localStorage.getItem("token")
+            const headers = {
+                Authorization: `Bearer ${token}`
+            }
+            const response = await editWorks(id, body, headers)
+            console.log(response);
+            if (response.status === 200) {
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Work details edited sucessfully',
+                    icon: 'success',
+                    confirmButtonText: 'OK',
+                });
+                setTimeout(() => {
+                    navigate('/works')
+                }, 2000)
+            }
+
+
+        } catch (error) {
+            alert('Internal server error')
         }
+
+    }
     useEffect(() => {
         fetchWorks()
         getDesignation()
@@ -171,62 +182,48 @@ function EditWorks() {
                                             <Select
                                                 labelId="demo-select-small-label"
                                                 id="demo-select-small"
-                                                value={designation}
+                                                value={designation || ""} 
                                                 onChange={handledesignation}
-
-
-
-                                                sx={{ width: '630px' }}
-
+                                                sx={{ width: '649px' }}
                                             >
-
                                                 {
-                                                    designationArr.length > 0 ? designationArr.map((item) => (
+                                                  designationArr &&  designationArr.length > 0 ? designationArr.map((item) => (
                                                         <MenuItem key={item._id} value={item._id}>
                                                             {item.title}
                                                         </MenuItem>
-                                                    )) : "no deignation found"
+                                                    )) : <MenuItem disabled>No designation found</MenuItem> 
                                                 }
-
-
                                             </Select>
                                         </FormControl>
                                     </div>
 
                                     <label className='formHeading my-2'>Assigned To</label>
-                             
-                                       <div>
+
+                                    <div>
                                         <FormControl sx={{ minWidth: 200 }} size="small">
                                             <InputLabel id="demo-select-small-label"></InputLabel>
                                             <Select
                                                 labelId="demo-select-small-label"
                                                 id="demo-select-small"
                                                 multiple
-                                                value={assignedTo.map(item => item.employee)}
+                                                value={assignedTo.length > 0 ? assignedTo.map(item => item.employee) : []} 
                                                 onChange={handleEmployees}
-
-
-
-                                                sx={{ width: '630px' }}
-
+                                                sx={{ width: '649px' }}
                                             >
-
                                                 {
-                                                    employeeArr.length > 0 ? employeeArr.map((item) => (
+                                                  employeeArr &&  employeeArr.length > 0 ? employeeArr.map((item) => (
                                                         <MenuItem key={item._id} value={item._id}>
                                                             {item.name}
                                                         </MenuItem>
-                                                    )) : "no deignation found"
+                                                    )) : <MenuItem disabled>No employees found</MenuItem> 
                                                 }
-
-
                                             </Select>
                                         </FormControl>
                                     </div>
 
                                     <label className='formHeading my-2'>deadline</label>
                                     <MDBInput
-                                        value={work.deadline ? new Date(work.deadline).toISOString().split('T')[0] : ''} 
+                                        value={work.deadline ? new Date(work.deadline).toISOString().split('T')[0] : ''}
                                         name='deadline'
                                         id="form1"
                                         type="date"
