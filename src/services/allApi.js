@@ -141,3 +141,43 @@ export const attendanceThisMonth=async(header)=>{
 export const todayAttendence=async(header)=>{
     return commonRequest("GET",`${BaseUrl}admin-attendance/list-today`,"",header)
 }
+
+//Api call to get allLeave Request
+export const allLeaveReq=async(header)=>{
+    return commonRequest("GET",`${BaseUrl}admin-leave/all-leaves`,"",header)
+}
+
+//Api call to view leave Request
+export const viewLeaveReq=async(id,header)=>{
+   return commonRequest("GET",`${BaseUrl}admin-leave/${id}`,"",header)
+}
+
+//Api call to view pending leave request
+export const pendingLeaveReq=async(header)=>{
+    return commonRequest("GET",`${BaseUrl}admin-leave/pending`,"",header)
+}
+
+//Api call to approve leave request
+export const approveLeaveReq=async(id,body,header)=>{
+    return commonRequest("PUT",`${BaseUrl}admin-leave/approve-leave/${id}`,body,header)
+}
+
+//Api call to reject leave request
+export const rejectLeaveRequest=async(id,body,header)=>{
+    return commonRequest("PUT",`${BaseUrl}admin-leave/reject-leave/${id}`,body,header)
+}
+
+//Api call to get all approved request list
+export const approvedRequestList=async(headers)=>{
+    return commonRequest("GET",`${BaseUrl}admin-leave/approved-leaves`,"",headers)
+}
+
+//Api call to get all approved request list
+export const rejectedRequestList=async(headers)=>{
+    return commonRequest("GET",`${BaseUrl}admin-leave/rejected-leaves`,"",headers)
+}
+
+//Api call to filter out abscence record of employee
+export const filterEmployeeAbscence=async(emplyCode,month,year,header)=>{
+    return commonRequest("GET",`${BaseUrl}admin-absence/records/${emplyCode}/${month}/${year}`,"",header)
+}

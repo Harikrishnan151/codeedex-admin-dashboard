@@ -27,9 +27,9 @@ function RejectedAttendenceReq() {
                 <h3 style={{ color: 'black' }} className='heading px-5 mt-4 '>Rejected Requests</h3>
                 <p className='heading px-5' style={{ color: '#4F4F4F' }}>Attendence  / <span style={{ color: 'black', }}>Rejected Requests</span></p>
             </div>
-            <div className="row attendencerow1 mx-4 ">
+            <div className="row attendencerow-1 mx-4 ">
                 <di className=" col-12 ">
-                    <h5 className='box-Heading my-3' style={{ fontWeight: "bold" }}>Approved Requests</h5>
+                    <h5 className='box-Heading my-3' style={{ fontWeight: "bold" }}>Rejected Requests</h5>
                     <MDBTable responsive>
                         <MDBTableHead style={{ backgroundColor: "rgb(237, 241, 247)" }} >
                             <tr>

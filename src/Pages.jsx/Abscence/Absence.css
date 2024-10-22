@@ -6,6 +6,7 @@
 .row2{
     background-color: white;
     border-radius: 12px;
+    width: 980px;
 }
 .btns{
     border: none;
@@ -13,4 +14,10 @@
 }
 .mainHeading{
     font-family: "Montserrat", sans-serif;
+}
+.attendencerow1{
+    background-color: white;
+    border-radius: 12px;
+    width: 980px;
+    height: 89px;
 }

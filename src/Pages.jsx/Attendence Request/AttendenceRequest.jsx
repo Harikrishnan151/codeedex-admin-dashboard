@@ -27,14 +27,14 @@ function AttendenceRequest() {
     const [loading, setLoading] = useState(false);
 
     //navigate
-    const navigate=useNavigate()
+    const navigate = useNavigate()
 
     const [attendenceData, setAttendenceData] = useState([])
     const [requestData, setRequestData] = useState({
         adminAction: {
-          reviewedBy: null,
-          reviewedAt: null,
-          reason: "",
+            reviewedBy: null,
+            reviewedAt: null,
+            reason: "",
         },
         requestId: "",  // If you have a request ID, you can keep this field
         userId: "",     // Now a string instead of an object
@@ -47,7 +47,7 @@ function AttendenceRequest() {
         status: "",
         createdAt: "",
         updatedAt: "",
-      });
+    });
 
     //Api call to fetch attendence list
     const fetchAttendenceList = async () => {
@@ -75,8 +75,8 @@ function AttendenceRequest() {
             const response = await viewAttendenceReq(body, headers);
             console.log(response.data);
             setRequestData({
-                requestId:response.data._id || "",
-                userId: response.data.userId || "",  
+                requestId: response.data._id || "",
+                userId: response.data.userId || "",
                 date: response.data.date || "",
                 punchIn: response.data.punchIn || "",
                 punchOut: response.data.punchOut || "",
@@ -91,7 +91,7 @@ function AttendenceRequest() {
                 //   reviewedAt: null,
                 //   reason: "",
                 // }
-              });
+            });
             setScrollableModal(true);  // Open modal after data is fetched
         } catch (error) {
             console.error('Error fetching data:', error);
@@ -110,48 +110,48 @@ function AttendenceRequest() {
         setAction(event.target.value);
     };
 
-    const adminId=localStorage.getItem("adminId")
-    console.log("AdminId",adminId);
+    const adminId = localStorage.getItem("adminId")
+    console.log("AdminId", adminId);
 
-    const [reason,setReason]=useState([])
+    const [reason, setReason] = useState([])
     console.log(reason);
-    
+
 
     //api call to approve/reject attendence list
-    const handleAttendenceRequest=async(e)=>{
+    const handleAttendenceRequest = async (e) => {
         e.preventDefault()
         try {
-            const body={
+            const body = {
                 ...requestData,
                 adminId,
                 reason,
                 action
             }
             console.log(body);
-            const token=localStorage.getItem("token")
-            const headers={
+            const token = localStorage.getItem("token")
+            const headers = {
                 Authorization: `Bearer ${token}`
             }
-            const response=await editAttendenceReq(body,headers)
+            const response = await editAttendenceReq(body, headers)
             console.log(response);
-            if(response.status===200){
+            if (response.status === 200) {
                 Swal.fire({
                     title: 'Success!',
                     text: 'Attendence Request Updated sucessfully',
-                    icon: 'success', 
+                    icon: 'success',
                     confirmButtonText: 'OK',
-                  });
-                  setScrollableModal(false);
-                  fetchAttendenceList()
+                });
+                setScrollableModal(false);
+                fetchAttendenceList()
             }
-            
-            
-            
+
+
+
         } catch (error) {
             alert('Internal server error')
         }
     }
-    
+
 
     useEffect(() => {
         fetchAttendenceList()
@@ -160,17 +160,17 @@ function AttendenceRequest() {
         <div className="container">
             <div className="row">
                 <div className="col-6">
-                <h3 style={{ color: 'black' }} className='heading px-5 mt-4 '>Attendence Request</h3>
-                <p className='heading px-5' style={{ color: '#4F4F4F' }}>Attendence / <span style={{ color: 'black', }}>Attendence Request</span></p>
+                    <h3 style={{ color: 'black' }} className='heading px-5 mt-4 '>Attendence Request</h3>
+                    <p className='heading px-5' style={{ color: '#4F4F4F' }}>Attendence / <span style={{ color: 'black', }}>Attendence Request</span></p>
                 </div>
                 <div className="col-6   approveBtn">
-                    <p className='heading  mt-5 pt-3 '><Link to={'/attendence/approved/requets'} style={{color:"black"}}>Approved Request</Link>   | <Link to={'/attendence/rejected/requets'} style={{color:"black"}}>Rejected Request</Link></p>  
+                    <p className='heading  mt-5 pt-3 '><Link to={'/attendence/approved/requets'} style={{ color: "black" }}>Approved Request</Link>   | <Link to={'/attendence/rejected/requets'} style={{ color: "black" }}>Rejected Request</Link></p>
                 </div>
             </div>
 
-            <div className="row attendencerow1 mx-4 ">
+            <div className="row attendencerow-1 mx-4 ">
                 <di className=" col-12 ">
-                    <h5 className='box-Heading my-3' style={{ fontWeight: "bold" }}>Attendance Report</h5>
+                    <h5 className='box-Heading my-3' style={{ fontWeight: "bold" }}>Attendance Request</h5>
                     <MDBTable responsive>
                         <MDBTableHead style={{ backgroundColor: "rgb(237, 241, 247)" }} >
                             <tr>
@@ -206,7 +206,7 @@ function AttendenceRequest() {
                     <MDBModal open={scrollableModal} onClose={() => setScrollableModal(false)} tabIndex='-1'>
                         <MDBModalDialog scrollable>
                             <MDBModalContent>
-                            
+
                                 <MDBModalHeader>
                                     <MDBModalTitle>Attendance Request</MDBModalTitle>
                                     <MDBBtn
@@ -215,7 +215,7 @@ function AttendenceRequest() {
                                         onClick={() => setScrollableModal(false)}
                                     ></MDBBtn>
                                 </MDBModalHeader>
-                               
+
                                 <MDBModalBody>
 
                                     {loading ? (
@@ -244,52 +244,52 @@ function AttendenceRequest() {
                                                             </div>
                                                         ))}
                                                     </>
-                            
-                                                    
-                                                    
+
+
+
                                                 ) : (
                                                     <p>No break times found</p>
                                                 )}
-                                                 <form onSubmit={handleAttendenceRequest}>
-                                    <label className='formHeading my-2'>Action</label>
-                                  <div>
-                                  <FormControl sx={{  minWidth: 200 }} size="small">
-                                        <InputLabel id="demo-select-small-label"></InputLabel>
-                                        <Select
-                                            labelId="demo-select-small-label"
-                                            id="demo-select-small"
-                                            value={action}
+                                                <form onSubmit={handleAttendenceRequest}>
+                                                    <label className='formHeading my-2'>Action</label>
+                                                    <div>
+                                                        <FormControl sx={{ minWidth: 200 }} size="small">
+                                                            <InputLabel id="demo-select-small-label"></InputLabel>
+                                                            <Select
+                                                                labelId="demo-select-small-label"
+                                                                id="demo-select-small"
+                                                                value={action}
 
-                                            onChange={handleChange}
-                                            sx={{ width: '150px' }}
-                                        >
-                                            <MenuItem value="">
-                                                <em>None</em>
-                                            </MenuItem>
-                                            <MenuItem value={"approve"}>Appprove</MenuItem>
-                                            <MenuItem value={"reject"}>Reject</MenuItem>
+                                                                onChange={handleChange}
+                                                                sx={{ width: '150px' }}
+                                                            >
+                                                                <MenuItem value="">
+                                                                    <em>None</em>
+                                                                </MenuItem>
+                                                                <MenuItem value={"approve"}>Appprove</MenuItem>
+                                                                <MenuItem value={"reject"}>Reject</MenuItem>
 
-                                        </Select>
-                                    </FormControl>
-                                  </div>
-                                    <div>
-                                        <label className='formHeading my-2'>Reason</label>
-                                        <MDBInput onChange={(e)=>setReason(e.target.value)} id="form1" type="text" />
-                                    </div>
-                                    <MDBModalFooter>
-                                    
-                                    <MDBBtn type='submit' color='dark'>Confirm</MDBBtn>
-                                </MDBModalFooter>
-                                    </form>
+                                                            </Select>
+                                                        </FormControl>
+                                                    </div>
+                                                    <div>
+                                                        <label className='formHeading my-2'>Reason</label>
+                                                        <MDBInput onChange={(e) => setReason(e.target.value)} id="form1" type="text" />
+                                                    </div>
+                                                    <MDBModalFooter>
+
+                                                        <MDBBtn type='submit' color='dark'>Confirm</MDBBtn>
+                                                    </MDBModalFooter>
+                                                </form>
 
                                             </>
                                         ) : 'No Data Found'
                                     )}
-                                    
+
                                 </MDBModalBody>
-                                
-                               
-                                
+
+
+
                             </MDBModalContent>
                         </MDBModalDialog>
                     </MDBModal>

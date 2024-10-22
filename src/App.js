@@ -31,6 +31,10 @@ import EditAdmin from './Pages.jsx/EditAdmin/EditAdmin';
 import AttendenceRequest from './Pages.jsx/Attendence Request/AttendenceRequest';
 import ApprovedAttendenceReq from './Pages.jsx/ApprovedAttendenceReq/ApprovedAttendenceReq';
 import RejectedAttendenceReq from './Pages.jsx/RejectedAttendenceReq/RejectedAttendenceReq';
+import LeaveReq from './Pages.jsx/LeaveReq/LeaveReq';
+import ViewLeaveReq from './Pages.jsx/viewLeaveReq/ViewLeaveReq';
+import ApprovedLeaveReq from './Pages.jsx/ApprovedLeaveReq/ApprovedLeaveReq';
+import RejectedLeaveReq from './Pages.jsx/RejectedLeaveReq/RejectedLeaveReq';
 
 function App() {
 
@@ -69,7 +73,7 @@ function App() {
             { label: <span style={{ fontSize: '16px' }}>ANALYSE</span>,disabled: true }, 
             { label: <span style={{ fontSize: '16px' }}>Attendance</span>, key: "/attendance", icon: <DescriptionIcon /> }, 
             { label: <span style={{ fontSize: '16px' }}>Absence</span>, key: "/absence", icon: <EventBusyIcon /> },      
-            { label: <span style={{ fontSize: '16px' }}>Report</span>, key: "/report", icon: <AssignmentIcon /> },   
+            { label: <span style={{ fontSize: '16px' }}>Leave Request</span>, key: "/leaveRequest", icon: <AssignmentIcon /> },   
             { label: <span style={{ fontSize: '16px' }}>MANAGE</span>,disabled: true },     
             { label: <span style={{ fontSize: '16px' }}>Admin</span>, key: '/admin',icon:<CoPresentIcon/> },
             { label: <span style={{ fontSize: '16px' }}>Employees</span>, key: "/employees", icon: <GroupIcon /> },  
@@ -119,6 +123,10 @@ function Content() {
         <Route path='/attendence/requests' element={<AttendenceRequest/>} />
         <Route path='/attendence/approved/requets' element={<ApprovedAttendenceReq/>} />
         <Route path='/attendence/rejected/requets' element={<RejectedAttendenceReq/>} />
+        <Route path='/leaveRequest' element={<LeaveReq/>} />
+        <Route path='/leaveRequest/:id' element={<ViewLeaveReq/>} />
+        <Route path='/leave/approved/requets' element={<ApprovedLeaveReq/>} />
+        <Route path='/leave/rejected/requets' element={<RejectedLeaveReq/>} />
       </Routes>
     </div>
   );

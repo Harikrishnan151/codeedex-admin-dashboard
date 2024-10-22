@@ -154,9 +154,6 @@ function Attendence() {
                             id="demo-select-small"
                             value={designation}
                             onChange={handledesignation}
-
-
-
                             sx={{ width: '130px' }}
 
                         >
@@ -256,10 +253,6 @@ function Attendence() {
                 </div>
             </div>
 
-
-
-
-
             {/* Render first data set if showData is true */}
             {showData && attendence && (
 
@@ -305,12 +298,6 @@ function Attendence() {
 
                         </div>
                     </div>
-
-
-
-
-
-
 
                     <div className="row attendencerow2 mt-3 mx-4">
                         <div className="col-12 ">

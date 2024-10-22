@@ -92,7 +92,7 @@ function Designation() {
             </div>
             <div className="row row-1 mx-4 my-2">
                 <div className="col-12 my-3 headingRow2">
-                    <h5 className='mainHeading' style={{ fontWeight: "bold", color: 'black' }}>Current Designations</h5>
+                    <h5 className='mainHeading ' style={{ fontWeight: "bold", color: 'black' }}>Current Designations</h5>
                     <div>
                         <MDBInput onChange={e=>setSearch(e.target.value)} label="Search" id="form1" type="text" />
                     </div>

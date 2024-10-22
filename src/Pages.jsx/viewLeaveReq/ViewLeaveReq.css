@@ -1,0 +1,13 @@
+.mainHeading{
+    font-family: "Montserrat", sans-serif;
+}
+.leaveReqRow{
+    /* background-color: white; */
+    border-radius: 12px;
+    width: 980px; 
+}
+.leaveBtns{
+    display: flex;
+    justify-content: end;
+    align-items: end;
+}

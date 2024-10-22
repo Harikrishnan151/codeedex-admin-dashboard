@@ -27,7 +27,7 @@ function ApprovedAttendenceReq() {
                 <p className='heading px-5' style={{ color: '#4F4F4F' }}>Attendence / <span style={{ color: 'black', }}>Approved Requests</span></p>
             </div>
             
-            <div className="row attendencerow1 mx-4 ">
+            <div className="row attendencerow-1 mx-4 ">
                 <di className=" col-12 ">
                     <h5 className='box-Heading my-3' style={{ fontWeight: "bold" }}>Approved Requests</h5>
                     <MDBTable responsive>
