@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './Employees.css'
 import { MDBBtn } from 'mdb-react-ui-kit';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import { MDBInput } from 'mdb-react-ui-kit';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
@@ -13,7 +13,7 @@ function Employess() {
 
     const [users,setUsers]=useState([])
     const [search,setSearch]=useState('')
-
+    const navigate=useNavigate()
     //api call to fetch users
     const fetchUsers=async()=>{
       const token = localStorage.getItem("token")
@@ -97,11 +97,11 @@ function Employess() {
                 <div className="col-12 my-3 headingRow2">
                     <h5 className='box-head' style={{ fontWeight: "bold",color:"black" }}>Current Employee</h5>
                     <div>
-                        <MDBInput onChange={(e)=>setSearch(e.target.value)} label="Search" id="form1" type="text" />
+                        <MDBInput onChange={(e)=>setSearch(e.target.value)} label="Search"  type="text" />
                     </div>
                 </div>
                 <div className="col-12 my-2">
-                    <MDBTable responsive>
+                    <MDBTable responsive hover>
                         <MDBTableHead style={{ backgroundColor: "rgb(237, 241, 247)" }} >
                             <tr>
                                 <th style={{ fontWeight: 'bold' }} scope='col'>#</th>
@@ -118,7 +118,7 @@ function Employess() {
                         <MDBTableBody>
                            {
                            users && users.length>0?data.map((employee,index)=>(
-                                <tr key={index}>
+                                <tr key={index} onClick={() => navigate(`/employee/view/${employee._id}`)} style={{ cursor: 'pointer' }}>
                                 <th scope='row'>{index+1}</th>
                                 <td>{employee.name}</td>
                                 <td>{employee.designation ? employee.designation.title : 'N/A'}</td>
@@ -127,10 +127,12 @@ function Employess() {
                                 <td>{employee.username}</td>
                                 <td>{employee.workMode}</td>
                                 <td>
-                                   <Link to={`/employee/edit/${employee._id}`}> <button className='btns' ><BorderColorIcon /></button></Link>
+                                   <Link  style={{ textDecoration: 'none', color: 'inherit',backgroundColor:"inherit" }} to={`/employee/edit/${employee._id}`}> <button className='btns'onClick={(e) => e.stopPropagation()} ><BorderColorIcon /></button></Link>
                                     
                                 </td>
-                               < td><button onClick={()=>handleDelete(employee._id)} className='btns' style={{ color: 'red' }}> < DeleteIcon /></button></td>
+                               < td><button onClick={(e)=>{
+                                e.stopPropagation();
+                                handleDelete(employee._id)}} className='btns' style={{ color: 'red' }}> < DeleteIcon /></button></td>
 
                             </tr>
                             )):<tr><td colSpan="8">No Users Found</td></tr>

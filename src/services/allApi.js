@@ -181,3 +181,24 @@ export const rejectedRequestList=async(headers)=>{
 export const filterEmployeeAbscence=async(emplyCode,month,year,header)=>{
     return commonRequest("GET",`${BaseUrl}admin-absence/records/${emplyCode}/${month}/${year}`,"",header)
 }
+
+//Api call to get this month attendence record
+export const abscenceRecordThisMonth=async(header)=>{
+    return commonRequest("GET",`${BaseUrl}admin-absence/records/10/2024`,"",header)
+}
+
+//Api call to search attendence
+export const searchAttendence=async(body,header)=>{
+    return commonRequest("POST",`${BaseUrl}admin-attendance/filter`,body,header)
+}
+
+//Api call to fetch attendence summary
+export const attendenceSummary=async(header)=>{
+    return commonRequest("GET",`${BaseUrl}admin-attendance/summary`,"",header)
+}
+
+
+//Api call to view specified attendence request list
+export const viweSpecifiedAttendenceRequest=async(id,header)=>{
+    return commonRequest("GET",`${BaseUrl}admin-attendance/requests/${id}`,"",header)
+}

@@ -5,13 +5,16 @@ import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import { MDBInput } from 'mdb-react-ui-kit';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { allAdmins, deleteAdmin } from '../../services/allApi';
 import Swal from 'sweetalert2';
 
 function Admin() {
 
     const [admin,setAdmin]=useState([])
+    const navigate=useNavigate()
+
+
 
     //Api call to get all admin
     const getAllAdmin=async()=>{
@@ -55,6 +58,9 @@ function Admin() {
        }
     }
     
+        //search admin
+        const [search,setSearch]=useState('')
+        const data = Array.isArray(admin) ? admin.filter(item => item.fullName.toLowerCase().includes(search.toLowerCase())) : [];
 
     useEffect(()=>{
         getAllAdmin()
@@ -80,11 +86,11 @@ function Admin() {
                 <div className="col-12 my-3 headingRow2">
                     <h5 className='mainHeading' style={{ fontWeight: "bold",color:'black' }}>Current Admins</h5>
                     <div>
-                        <MDBInput label="Search" id="form1" type="text" />
+                        <MDBInput onChange={(e)=>setSearch(e.target.value)} label="Search" type="text" />
                     </div>
                 </div>
                 <div className="col-12 my-2">
-                    <MDBTable responsive>
+                    <MDBTable responsive hover>
                         <MDBTableHead style={{ backgroundColor: "rgb(237, 241, 247)" }} >
                             <tr>
                                 <th style={{ fontWeight: 'bold' }} scope='col'>#</th>
@@ -100,20 +106,29 @@ function Admin() {
                         <MDBTableBody>
 
                            {
-                           admin && admin.length>0?admin.map((adminData,index)=>(
-                                <tr key={index}>
+                           admin && admin.length>0?data.map((adminData,index)=>(
+                            <tr key={index} onClick={() => navigate(`/admin/view/${adminData._id}`)} style={{ cursor: 'pointer' }} >  
                                 <th scope='row'>{index+1}</th>
                                 <td>{adminData.fullName}</td>
                                 <td>{adminData.address}</td>
                                 <td>{adminData.email}</td>
                                 <td>{adminData.username}</td>
                                 <td>{adminData.adminCode}</td>
-                                <td> <Link to={`/edit/admin/${adminData._id}`}> <button className='btns' ><BorderColorIcon /></button></Link></td>
+                                <td> <Link style={{ textDecoration: 'none', color: 'inherit',backgroundColor:"inherit" }} to={`/edit/admin/${adminData._id}`}> <button className='btns' onClick={(e) => e.stopPropagation()} ><BorderColorIcon /></button></Link></td>
                                 <td>
-                                 
-                                    <button onClick={()=>handleDelete(adminData._id)} className='btns' style={{ color: 'red' }}> < DeleteIcon /></button>
-                                </td>
-                            </tr>
+                        <button
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                handleDelete(adminData._id);
+                            }}
+                            className='btns'
+                            style={{ color: 'red' }}
+                        >
+                            <DeleteIcon />
+                        </button>
+                    </td>
+                            
+                            </tr> 
                             )):'No Admin data found'
                            }
                             

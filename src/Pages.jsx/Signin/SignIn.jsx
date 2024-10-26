@@ -18,10 +18,12 @@ import { MDBCheckbox } from 'mdb-react-ui-kit';
 import {  useNavigate } from 'react-router-dom';
 import { adminLogin } from '../../services/allApi';
 import { jwtDecode } from "jwt-decode";
+import { PropagateLoader } from 'react-spinners'
 function SignIn() {
     const [email,setEmail]=useState([])
     const [password,setPassword]=useState([])
     const [adminData, setAdminData] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const navigate=useNavigate()
 
@@ -34,8 +36,10 @@ function SignIn() {
             if(!email||!password){
                 alert('Please fill all the feilds')
             }else{
+                setLoading(true);
                 const response=await adminLogin(body)
                 console.log(response)
+                setLoading(false);
                 if(response.status===200){
                     if(response.data.token){
                         const decode =jwtDecode(response.data.token)
@@ -74,6 +78,7 @@ function SignIn() {
             }
         } catch (error) {
             console.log(error);
+            setLoading(false); 
             Swal.fire({
                 title: 'Error!',
                 text: 'Internal Server Error',
@@ -90,46 +95,54 @@ function SignIn() {
     //     }
     //   }, [adminData]);
     return (
-        <div >
-            <MDBNavbar light bgColor='light'>
-                <MDBContainer fluid>
-                    <MDBNavbarBrand tag="span" style={{fontWeight:"bold", fontSize:'large'}}  className='mb-0 h1 mx-4'>Codeedex Technologies</MDBNavbarBrand>
-                </MDBContainer>
-            </MDBNavbar>
-            <div className="container">
-                <div className="row my-3">
-                    <div className="col-md-6 col-12 my-3">
-                        <img className='logo' src={logo} />
-                    </div>
-                    <div className="col-md-6 col-12 my-3">
-                        <MDBCard >
-                            <MDBCardBody className='signInform'>
-                                <form onSubmit={handleSubmit}>
-                                    {/* <div className='card' > */}
-                                    <label className='formHeading my-2'>Username</label>
-                                    <MDBInput onChange={(e)=>setEmail(e.target.value)} id="form1" type="text" />
-                                    <label className='formHeading my-2'>Password</label>
-                                    <MDBInput onChange={(e)=>setPassword(e.target.value)} id="form1" type="password" />
-                                    <div className='my-3'>
-                                        <MDBCheckbox color='black' name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
-                                    </div>
-                                    <div>
-                                       
-                                        <MDBBtn type='submit' size='sm' color='dark'>
-                                            Sign In
-                                        </MDBBtn>
-                                    </div>
-
-                                    {/* </div> */}
-
-                                </form>
-
-                            </MDBCardBody>
-                        </MDBCard>
-                    </div>
+        <div>
+        <MDBNavbar light bgColor='light'>
+            <MDBContainer fluid>
+                <MDBNavbarBrand tag="span" style={{ fontWeight: "bold", fontSize: 'large' }} className='mb-0 h1 mx-4'>Codeedex Technologies</MDBNavbarBrand>
+            </MDBContainer>
+        </MDBNavbar>
+        <div className="container">
+               {/* Conditionally render loader or form */}
+               {loading ? (
+                                <div className="loader-container">
+                                    <PropagateLoader color="#000" loading={loading} size={15} />
+                                </div>
+                            ) :(
+            <div className="row my-3">
+                <div className="col-md-6 col-12 my-3">
+                    <img className='logo' src={logo} alt="Codeedex logo" />
                 </div>
+                
+                <div className="col-md-6 col-12 my-3">
+                    <MDBCard>
+                        <MDBCardBody className='signInform'>
+                          
+                                <form onSubmit={handleSubmit}>
+                                    <label className='formHeading my-2'>Username</label>
+                                    <MDBInput onChange={(e) => setEmail(e.target.value)} id="form1" type="text" />
+                                    <label className='formHeading my-2'>Password</label>
+                                    <MDBInput onChange={(e) => setPassword(e.target.value)} id="form1" type="password" />
+                                    <div>
+                                        <div className='my-3'>
+                                            <MDBCheckbox color='black' name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
+                                        </div>
+                                        <div className='d-flex'>
+                                            <MDBBtn type='submit' size='sm' color='dark'>
+                                                Sign In
+                                            </MDBBtn>
+                                        </div>
+                                    </div>
+                                </form>
+                            
+                        </MDBCardBody>
+                    </MDBCard>
+                </div>
+                           
             </div>
+             )}
         </div>
+   
+    </div>
     )
 }
 

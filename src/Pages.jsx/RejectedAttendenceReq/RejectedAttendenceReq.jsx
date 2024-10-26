@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import './RejectedAttendenceReq.css'
 import { viewRejectedReq } from '../../services/allApi'
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
+import { useNavigate } from 'react-router-dom';
 
 function RejectedAttendenceReq() {
 
     const [data,setData]=useState([])
+    const navigate=useNavigate()
 
     const fetchRejectedReq=async()=>{
         const token=localStorage.getItem("token")
@@ -30,7 +32,7 @@ function RejectedAttendenceReq() {
             <div className="row attendencerow-1 mx-4 ">
                 <di className=" col-12 ">
                     <h5 className='box-Heading my-3' style={{ fontWeight: "bold" }}>Rejected Requests</h5>
-                    <MDBTable responsive>
+                    <MDBTable responsive hover>
                         <MDBTableHead style={{ backgroundColor: "rgb(237, 241, 247)" }} >
                             <tr>
                                 <th style={{ fontWeight: 'bold' }} scope='col'>#</th>
@@ -45,7 +47,7 @@ function RejectedAttendenceReq() {
                         <MDBTableBody>
                            {
                             data && data.length>0?data.map((attendenceData,index)=>(
-                                <tr key={index}>
+                                <tr key={index}  onClick={() => navigate(`/attendence/Rejected/view/${attendenceData._id}`)} style={{ cursor: 'pointer' }}>
                                 <th scope='row'>{index+1}</th>
                                 <td>{attendenceData._id}</td>
                                 <td>{attendenceData.adminAction.reviewedBy.username}</td>

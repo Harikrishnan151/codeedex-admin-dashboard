@@ -35,6 +35,12 @@ import LeaveReq from './Pages.jsx/LeaveReq/LeaveReq';
 import ViewLeaveReq from './Pages.jsx/viewLeaveReq/ViewLeaveReq';
 import ApprovedLeaveReq from './Pages.jsx/ApprovedLeaveReq/ApprovedLeaveReq';
 import RejectedLeaveReq from './Pages.jsx/RejectedLeaveReq/RejectedLeaveReq';
+import SpecifiedViewAdmin from './Pages.jsx/SpecifiedViewAdmin/SpecifiedViewAdmin';
+import SpecifiedViewEmployee from './Pages.jsx/SpecifiedViewEmployee/SpecifiedViewEmployee';
+import SpecifiedViewDesignation from './Pages.jsx/SpecifiedViewDesignation/SpecifiedViewDesignation';
+import SpecifiedViewWorks from './Pages.jsx/SpecifiedViewWorks/SpecifiedViewWorks';
+import ViewApprovedAttendenceReq from './Pages.jsx/SpecifiedAttendenceApprovedReq/ViewApprovedAttendenceReq';
+import ViewRejectedAttendenceReq from './Pages.jsx/SpecifiedAttendenceRejectedReq/ViewRejectedAttendenceReq';
 
 function App() {
 
@@ -127,6 +133,13 @@ function Content() {
         <Route path='/leaveRequest/:id' element={<ViewLeaveReq/>} />
         <Route path='/leave/approved/requets' element={<ApprovedLeaveReq/>} />
         <Route path='/leave/rejected/requets' element={<RejectedLeaveReq/>} />
+        <Route path='/admin/view/:id' element={<SpecifiedViewAdmin/>} />
+        <Route path='/employee/view/:id' element={<SpecifiedViewEmployee/>} />
+        <Route path='/designation/view/:id' element={<SpecifiedViewDesignation/>} />
+        <Route path='/work/view/:id' element={<SpecifiedViewWorks/>} />
+        <Route path='/attendence/approved/view/:id' element={<ViewApprovedAttendenceReq/>} />
+        <Route path='/attendence/Rejected/view/:id' element={<ViewRejectedAttendenceReq/>} />
+
       </Routes>
     </div>
   );

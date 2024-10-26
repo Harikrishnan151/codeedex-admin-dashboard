@@ -16,3 +16,10 @@
     width: 980px;
     
 }
+.form{
+    width: 400px;
+}
+.formBox{
+    display: flex;
+    flex-direction: column;
+}

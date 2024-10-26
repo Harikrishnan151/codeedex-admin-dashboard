@@ -9,7 +9,7 @@ import Select from '@mui/material/Select';
 import InputLabel from '@mui/material/InputLabel';
 
 import { MDBBtn } from 'mdb-react-ui-kit';
-import { allUsers, filterEmployeeAbscence, todayAttendence } from '../../services/allApi';
+import { abscenceRecordThisMonth, allUsers, filterEmployeeAbscence, todayAttendence } from '../../services/allApi';
 import { Shield } from '@mui/icons-material';
 function Abscence() {
 
@@ -98,13 +98,33 @@ function Abscence() {
   console.log('attendenceToday', abscenteesToday);
 
 
+
   useEffect(() => {
     console.log('Filtered Leave Data:', filteredLeave);
   }, [filteredLeave]);
 
+  //api call to fetch current month abscence
+  const [abscenceThisMonth,setAbscenceThisMonth]=useState([])
+  const fetchCurrentMonthAbsence = async () => {
+    const token = localStorage.getItem("token");
+    const header = {
+      Authorization: `Bearer ${token}`,
+    };
+    try {
+      const response = await abscenceRecordThisMonth(header);
+      console.log(response.data.employeeAbsenceDetails);
+      setAbscenceThisMonth(response.data.employeeAbsenceDetails); 
+    } catch (error) {
+      console.error("Error fetching absence data", error);
+    }
+  };console.log(abscenceThisMonth);
+  
+  
+
   useEffect(() => {
     fetchEmployees()
     fetchTodayAbscence()
+    fetchCurrentMonthAbsence()
   }, [])
   return (
     <div className='container'>
@@ -235,37 +255,46 @@ function Abscence() {
 
             <div className="row row2 my-3 mx-4">
               <div className="col-12 my-3">
-                <h5 className='mainHeading' style={{ fontWeight: "bold" }}>Absence Record</h5>
+                <h5 className='mainHeading' style={{ fontWeight: "bold" }}>Absence Record This Month</h5>
                 <MDBTable responsive>
                   <MDBTableHead style={{ backgroundColor: "rgb(237, 241, 247)" }} >
                     <tr>
                       <th style={{ fontWeight: 'bold' }} scope='col'>#</th>
                       <th style={{ fontWeight: 'bold' }} scope='col'>Employee Name</th>
-                      <th style={{ fontWeight: 'bold' }} scope='col'>Designation</th>
-                      <th style={{ fontWeight: 'bold' }} scope='col'>Period</th>
-                      <th style={{ fontWeight: 'bold' }} scope='col'>Absence Reason</th>
-                      <th style={{ fontWeight: 'bold' }} scope='col'>Absence For</th>
+                      <th style={{ fontWeight: 'bold' }} scope='col'>Employee Code</th>
+                      <th style={{ fontWeight: 'bold' }} scope='col'>Designation</th>                   
+                      <th style={{ fontWeight: 'bold' }} scope='col'>Total Abscence</th>
+                      <th style={{ fontWeight: 'bold' }} scope='col'>Date</th>
                     </tr>
                   </MDBTableHead>
                   <MDBTableBody>
-                    <tr>
-                      <th scope='row'>1</th>
-                      <td>Mark</td>
-                      <td>Otto</td>
-                      <td>First</td>
-                      <td>Fever</td>
-                      <td>2 day</td>
-
-                    </tr>
-                    <tr>
-                      <th scope='row'>2</th>
-                      <td>Jacob</td>
-                      <td>Thornton</td>
-                      <td>Second</td>
-                      <td>Sick</td>
-                      <td>1 day</td>
-
-                    </tr>
+                  {
+  abscenceThisMonth && abscenceThisMonth.length > 0 ? (
+    abscenceThisMonth.map((data, index) => (
+      <tr key={index}>
+        <th scope='row'>{index + 1}</th>
+        <td>{data.employee.name}</td> 
+        <td>{data.employee.employeeCode}</td> 
+        <td>{data.employee.designation.title}</td> 
+        <td>{data.totalAbsences} days</td> 
+        <td>
+        {data.absences.map((absence, absIndex) => (
+  <span key={absIndex}>
+    {absence.date} 
+    <br/> 
+  </span>
+))}
+        </td> 
+        
+      </tr>
+    ))
+  ) : (
+    <tr>
+      <td colSpan="6">No Absence Record Found</td>
+    </tr>
+  )
+}
+                   
 
                   </MDBTableBody>
                 </MDBTable>
@@ -298,10 +327,10 @@ function Abscence() {
     filteredLeave.map((data, index) => (
       <tr key={index}>
         <th scope='row'>{index + 1}</th>
-        <td>{data.employee?.name || 'No Name'}</td>
-        <td>{data.employee?.employeeCode || 'No EmployeeCode'}</td>
-        <td>{data.employee?.designation?.title || 'No Designation'}</td>
-        <td>{data.totalAbsences} days</td>
+        <td>{data.employee?.name || ''}</td>
+        <td>{data.employee?.employeeCode || 'Data Not Found...!'}</td>
+        <td>{data.employee?.designation?.title || ''}</td>
+        <td>{data.totalAbsences} </td>
         <td>
           {(data.absences || []).map((absence, i) => (
             <span key={i}>
@@ -321,11 +350,7 @@ function Abscence() {
       </td>
     </tr>
 }
-
-
-
-
-                </MDBTableBody>
+           </MDBTableBody>
               </MDBTable>
 
             </div>

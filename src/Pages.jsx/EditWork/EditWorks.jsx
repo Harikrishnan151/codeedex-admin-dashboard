@@ -172,7 +172,7 @@ function EditWorks() {
                             <form onSubmit={editUserWorks}>
                                 <MDBCardText>
                                     <label className='formHeading my-2'>Work Name</label>
-                                    <MDBInput onChange={handleChange} value={work.workName} name='workName' id="form1" type="text" />
+                                    <MDBInput onChange={handleChange} value={work.workName} name='workName'  type="text" />
 
 
                                     <label className='formHeading my-2'>Designation</label>

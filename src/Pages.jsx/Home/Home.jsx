@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Home.css';
 import {
   MDBCard,
@@ -13,10 +13,59 @@ import ReactApexChart from 'react-apexcharts';
 // import { RxDotFilled } from "react-icons/rx";
 // import { GrPhoneVertical } from "react-icons/gr";
 import { Radar, RadarChart, PolarGrid, Legend, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer } from 'recharts';
+import { attendanceThisMonth, attendenceSummary, todayAttendence } from '../../services/allApi';
 
 function Home() {
 
 
+  //Api call to fetch this month attendence
+  const [attendence, setAttendence] = useState([]);
+  const getThisMonthAttendence = async () => {
+    const token = localStorage.getItem("token")
+    const headers = {
+      Authorization: `Bearer ${token}`
+    }
+    const response = await attendanceThisMonth(headers)
+    console.log(response.data);
+    setAttendence(response.data)
+  }
+  console.log('attendenceThisMonth', attendence);
+
+  //api call to fetch today attendence
+  const [attendenceToday, setAttendenceToday] = useState([])
+  const fetchTodayAttendence = async () => {
+    const token = localStorage.getItem("token")
+    const header = {
+      Authorization: `Bearer ${token}`
+    }
+    const response = await todayAttendence(header)
+    console.log(response.data);
+    setAttendenceToday(response.data)
+  }
+  console.log('attendenceToday', attendenceToday);
+
+
+  //Api call to fetch attendence summary
+  const [attendenceData, setAttendenceData] = useState([])
+  const fetchAttendenceSummary = async () => {
+    const token = localStorage.getItem("token")
+    const header = {
+      Authorization: `Bearer ${token}`
+    }
+    const response = await attendenceSummary(header)
+    console.log('attendence Summary', response.data);
+    setAttendenceData(response.data)
+
+  }
+  console.log(attendenceData);
+
+
+
+  useEffect(() => {
+    getThisMonthAttendence()
+    fetchTodayAttendence()
+    fetchAttendenceSummary()
+  }, [])
 
   const data = [
     {
@@ -158,8 +207,8 @@ function Home() {
                     <div className='d-flex align-items-center justify-content-center'>
                       < CircleIcon style={{ color: 'rgb(237, 241, 247)', fontSize: '40px' }} />
                       <div >
-                        <h3 className='mt-2' style={{ fontWeight: 'bold', color: 'black' }}>145</h3>
-                        <p ><span style={{ fontWeight: 'bold', color: 'black' }}>12% </span>increase</p>
+                        <h3 className='mt-2' style={{ fontWeight: 'bold', color: 'black' }}>{attendenceData.today ?attendenceData.today.presentCount: '0'}</h3>
+                        <p ><span style={{ fontWeight: 'bold', color: 'black' }}>{attendenceData.today?attendenceData.today.presentPercentageChange :'10%'}</span > increase</p>
                       </div>
                     </div>
                   </MDBCardText>
@@ -176,8 +225,8 @@ function Home() {
                     <div className='d-flex align-items-center justify-content-center'>
                       < CircleIcon style={{ color: 'rgb(237, 241, 247)', fontSize: '40px' }} />
                       <div >
-                        <h3 className='mt-2' style={{ fontWeight: 'bold', color: 'black' }}>145</h3>
-                        <p ><span style={{ fontWeight: 'bold', color: 'black' }}>12% </span>increase</p>
+                        <h3 className='mt-2' style={{ fontWeight: 'bold', color: 'black' }}>{attendenceData.today ?attendenceData.today.absentCount: '0'}</h3>
+                        <p ><span style={{ fontWeight: 'bold', color: 'black' }}>{attendenceData.today?attendenceData.today.absentPercentageChange:'10%'} </span>increase</p>
                       </div>
                     </div>
 
@@ -193,10 +242,12 @@ function Home() {
                   <h6 style={{ color: 'black', fontWeight: 'bold' }}>Attendence | <span style={{ fontSize: 'small', fontWeight: 'normal' }}>Month</span></h6>
                   <MDBCardText>
                     <div className='d-flex align-items-center justify-content-center'>
-                      < CircleIcon style={{ color: 'rgb(237, 241, 247)', fontSize: '40px' }} />
-                      <div >
-                        <h3 className='mt-2' style={{ fontWeight: 'bold', color: 'black' }}>145</h3>
-                        <p ><span style={{ fontWeight: 'bold', color: 'black' }}>12% </span>increase</p>
+                      <CircleIcon style={{ color: 'rgb(237, 241, 247)', fontSize: '40px' }} />
+                      <div>
+                        <h3 className='mt-2' style={{ fontWeight: 'bold', color: 'black' }}>
+                          {attendenceData.currentMonth ? attendenceData.currentMonth.totalCount : '0'}
+                        </h3>
+                        <p><span style={{ fontWeight: 'bold', color: 'black' }}>12% </span>increase</p>
                       </div>
                     </div>
                   </MDBCardText>
@@ -213,17 +264,17 @@ function Home() {
           <MDBCard className='activityCard' style={{ boxShadow: '5px 5px 20px 5px #0129701A' }} >
 
             <MDBCardBody >
-            <MDBCardTitle className='' style={{ color: 'green' }}>Recent Activities | <span style={{ fontSize: 'small', color: 'black' }}>Today</span></MDBCardTitle>
-       
+              <MDBCardTitle className='' style={{ color: 'green' }}>Recent Activities | <span style={{ fontSize: 'small', color: 'black' }}>Today</span></MDBCardTitle>
+
               <MDBCardText >
                 <span>
-               <div className='my-1'>32 min <PiLineVerticalBold size={30} style={{ color: 'rgb(131, 166, 168)' }} /> Created new teacher</div> 
-               <div className='my-1'>56 min <PiLineVerticalBold size={30} style={{ color: 'rgb(131, 166, 168)' }} /> Java Attendence </div>
-               12 min <PiLineVerticalBold size={30} style={{ color: 'rgb(131, 166, 168)' }} />Mern Attendence  
-              <span style={{color:'white'}}> 12 min <PiLineVerticalBold size={30}  />Mern Attendence</span>
-               </span>
-                    
-                  </MDBCardText>
+                  <div className='my-1'>32 min <PiLineVerticalBold size={30} style={{ color: 'rgb(131, 166, 168)' }} /> Created new teacher</div>
+                  <div className='my-1'>56 min <PiLineVerticalBold size={30} style={{ color: 'rgb(131, 166, 168)' }} /> Java Attendence </div>
+                  12 min <PiLineVerticalBold size={30} style={{ color: 'rgb(131, 166, 168)' }} />Mern Attendence
+                  <span style={{ color: 'white' }}> 12 min <PiLineVerticalBold size={30} />Mern Attendence</span>
+                </span>
+
+              </MDBCardText>
             </MDBCardBody>
           </MDBCard>
 

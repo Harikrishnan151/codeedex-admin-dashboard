@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './Designation.css'
 import { MDBBtn } from 'mdb-react-ui-kit';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MDBInput } from 'mdb-react-ui-kit';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
@@ -13,6 +13,7 @@ function Designation() {
 
     const [designation,setDesignation]=useState([])
     const [search,setSearch]=useState('')
+    const navigate=useNavigate()
 
     //Api call to fetch designation
     const getDesignation=async()=>{
@@ -94,11 +95,11 @@ function Designation() {
                 <div className="col-12 my-3 headingRow2">
                     <h5 className='mainHeading ' style={{ fontWeight: "bold", color: 'black' }}>Current Designations</h5>
                     <div>
-                        <MDBInput onChange={e=>setSearch(e.target.value)} label="Search" id="form1" type="text" />
+                        <MDBInput onChange={e=>setSearch(e.target.value)} label="Search"  type="text" />
                     </div>
                 </div>
                 <div className="col-12 my-2">
-                <MDBTable responsive>
+                <MDBTable responsive hover>
                         <MDBTableHead style={{ backgroundColor: "rgb(237, 241, 247)" }} >
                             <tr>
                                 <th style={{ fontWeight: 'bold' }} scope='col'>#</th>
@@ -112,12 +113,14 @@ function Designation() {
                         <MDBTableBody>
                            {
                           designation && designation.length>0?data.map((designationItems,index)=>(
-                                <tr key={index}>
+                                <tr key={index} onClick={() => navigate(`/designation/view/${designationItems._id}`)} style={{ cursor: 'pointer' }} >
                                 <th scope='row'>{index+1}</th>
                                 <td>{designationItems.title}</td>
                                 <td>{designationItems.description}</td>
-                             <td><button className='btns ' > <Link style={{ textDecoration: 'none', color: 'inherit',backgroundColor:"inherit" }} to={`/designation/${designationItems._id}`}> <BorderColorIcon /></Link> </button></td>
-                                <td><button onClick={()=>handleDelete(designationItems._id)} className='btns' style={{ color: 'red' }}> < DeleteIcon /></button></td>
+                             <td><button className='btns ' onClick={(e) => e.stopPropagation()} > <Link style={{ textDecoration: 'none', color: 'inherit',backgroundColor:"inherit" }} to={`/designation/${designationItems._id}`}> <BorderColorIcon /></Link> </button></td>
+                                <td><button onClick={(e)=>{
+                                   e.stopPropagation();
+                                  handleDelete(designationItems._id)}} className='btns' style={{ color: 'red' }}> < DeleteIcon /></button></td>
                             </tr>
                            )):"No DESIGNATION"
                            

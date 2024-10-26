@@ -144,9 +144,6 @@ function AttendenceRequest() {
                 setScrollableModal(false);
                 fetchAttendenceList()
             }
-
-
-
         } catch (error) {
             alert('Internal server error')
         }
@@ -187,17 +184,17 @@ function AttendenceRequest() {
                                 attendenceData && attendenceData.length > 0 ? attendenceData.map((attendence, index) => (
                                     <tr key={index}>
                                         <th scope='row'>{index + 1}</th>
-                                        {/* <td>{attendence.username}</td> */}
-                                        <td>{attendence.EmplyCode}</td>
+                                        <td>{attendence.username}</td>
+                                        <td>{attendence.employeeCode}</td>
                                         <td>{attendence.date.slice(8, 10)}{attendence.date.slice(4, 8)}{attendence.date.slice(0, 4)}</td>
-                                        <td>< MDBBtn color='dark' onClick={() => {
-                                            handleAttendenceReq(attendence.EmplyCode, attendence.date);
+                                        <td>< MDBBtn size='sm' outline  color='dark' onClick={() => {
+                                            handleAttendenceReq(attendence.employeeCode, attendence.date);
                                             setScrollableModal(!scrollableModal);
                                         }} >View</ MDBBtn></td>
 
 
                                     </tr>
-                                )) : "Attendence Pending Request"
+                                )) : <td>No Pending Request</td>
                             }
 
 
@@ -250,37 +247,46 @@ function AttendenceRequest() {
                                                 ) : (
                                                     <p>No break times found</p>
                                                 )}
-                                                <form onSubmit={handleAttendenceRequest}>
-                                                    <label className='formHeading my-2'>Action</label>
+                                                <div className='formBox'>
+                                                    <form onSubmit={handleAttendenceRequest}>
                                                     <div>
-                                                        <FormControl sx={{ minWidth: 200 }} size="small">
-                                                            <InputLabel id="demo-select-small-label"></InputLabel>
-                                                            <Select
-                                                                labelId="demo-select-small-label"
-                                                                id="demo-select-small"
-                                                                value={action}
+                                                            <div>
+                                                                <label className='formHeading my-2'>Action</label>
+                                                            </div>
+                                                            <FormControl sx={{ minWidth: 200 }} size="small">
+                                                                <InputLabel id="demo-select-small-label"></InputLabel>
+                                                                <Select
+                                                                    labelId="demo-select-small-label"
+                                                                    id="demo-select-small"
+                                                                    value={action}
 
-                                                                onChange={handleChange}
-                                                                sx={{ width: '150px' }}
-                                                            >
-                                                                <MenuItem value="">
-                                                                    <em>None</em>
-                                                                </MenuItem>
-                                                                <MenuItem value={"approve"}>Appprove</MenuItem>
-                                                                <MenuItem value={"reject"}>Reject</MenuItem>
+                                                                    onChange={handleChange}
+                                                                    sx={{ width: '200px' }}
+                                                                >
+                                                                    <MenuItem value="">
+                                                                        <em>None</em>
+                                                                    </MenuItem>
+                                                                    <MenuItem value={"approve"}>Appprove</MenuItem>
+                                                                    <MenuItem value={"reject"}>Reject</MenuItem>
 
-                                                            </Select>
-                                                        </FormControl>
-                                                    </div>
-                                                    <div>
-                                                        <label className='formHeading my-2'>Reason</label>
-                                                        <MDBInput onChange={(e) => setReason(e.target.value)} id="form1" type="text" />
-                                                    </div>
-                                                    <MDBModalFooter>
+                                                                </Select>
+                                                            </FormControl>
+                                                        </div>
 
-                                                        <MDBBtn type='submit' color='dark'>Confirm</MDBBtn>
-                                                    </MDBModalFooter>
-                                                </form>
+                                                        <div className='mx-3'>
+                                                            <label className='formHeading my-2'>Reason</label>
+                                                            <MDBInput onChange={(e) => setReason(e.target.value)} id="form" type="text" />
+                                                        </div>
+
+                                                        
+
+
+                                                        <MDBModalFooter>
+
+                                                            <MDBBtn type='submit' color='dark'>Confirm</MDBBtn>
+                                                        </MDBModalFooter>
+                                                    </form>
+                                                </div>
 
                                             </>
                                         ) : 'No Data Found'

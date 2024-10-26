@@ -29,3 +29,10 @@
     /* align-items: end; */
     
 }
+form {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap; /* To ensure the form elements respect the row layout */
+    align-items: center; /* Align items vertically in the center */
+  }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './Work.css'
 import { MDBBtn } from 'mdb-react-ui-kit';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MDBTable, MDBTableHead, MDBTableBody } from 'mdb-react-ui-kit';
 import { MDBInput } from 'mdb-react-ui-kit';
 import BorderColorIcon from '@mui/icons-material/BorderColor';
@@ -10,6 +10,8 @@ import { allWorks, deleteWorks } from '../../services/allApi';
 import Swal from 'sweetalert2';
 
 function Work() {
+
+    const navigate=useNavigate()
     const [works, setWorks] = useState([])
     // Api call to fetch all works
     const fetchWorks = async () => {
@@ -93,11 +95,11 @@ function Work() {
                 <div className="col-12 my-3 headingRow2">
                     <h5 className='mainHeading' style={{ fontWeight: "bold", color: "black" }}>Current Works</h5>
                     <div>
-                        <MDBInput onChange={(e)=>setSearch(e.target.value)} label="Search" id="form1" type="text" />
+                        <MDBInput onChange={(e)=>setSearch(e.target.value)} label="Search"  type="text" />
                     </div>
                 </div>
                 <div className="col-12 my-2">
-                    <MDBTable responsive>
+                    <MDBTable responsive hover>
                         <MDBTableHead style={{ backgroundColor: "rgb(237, 241, 247)" }} >
                             <tr>
                                 <th style={{ fontWeight: 'bold' }} scope='col'>#</th>
@@ -115,7 +117,7 @@ function Work() {
 
                             {
                             works && works.length > 0 ? data.map((workData, index) => (
-                                    <tr key={index}>
+                                    <tr key={index} onClick={() => navigate(`/work/view/${workData._id}`)} style={{ cursor: 'pointer' }}>
                                         <th scope='row'>{index + 1}</th>
                                         <td>{workData.workName}</td>
                                         <td>{workData.designation.title}</td>
@@ -128,12 +130,15 @@ function Work() {
                                         <td>{workData.admin.email}</td>
                                         <td>{workData.deadline.slice(8, 10)}{workData.deadline.slice(4, 8)}{workData.deadline.slice(0, 4)}</td>
                                         <td>{workData.status}</td>
-                                        <td><button className='btns mx-1' ><Link to={`/edit/works/${workData._id}`}> <BorderColorIcon /></Link></button>
+                                        <td><button onClick={(e) => e.stopPropagation()} className='btns mx-1' ><Link  style={{ textDecoration: 'none', color: 'inherit',backgroundColor:"inherit" }} to={`/edit/works/${workData._id}`}> <BorderColorIcon /></Link></button>
 
                                         </td>
-                                        <td>   <button className='btns ' onClick={() => handleDelete(workData._id)} style={{ color: 'red' }}> < DeleteIcon /></button></td>
+                                        <td>   <button className='btns ' onClick={(e) =>{
+                                            e.stopPropagation();
+                                             handleDelete(workData._id)}}
+                                             style={{ color: 'red' }}> < DeleteIcon /></button></td>
                                     </tr>
-                                )) : "No Wokrs Found"
+                                )) :<tr>No Works Found</tr>
                             }
 
                         </MDBTableBody>
