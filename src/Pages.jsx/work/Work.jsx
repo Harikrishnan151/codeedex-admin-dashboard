@@ -20,11 +20,11 @@ function Work() {
             Authorization: `Bearer ${token}`
         }
         const response = await allWorks(headers)
-        console.log(response);
+        // console.log(response);
         setWorks(response.data.data)
 
     }
-    console.log(works);
+    // console.log(works);
 
 
     //Api call to delete works
@@ -46,7 +46,7 @@ function Work() {
                         Authorization: `Bearer ${token}`
                     }
                     const response = await deleteWorks(id, headers);
-                    console.log(response);
+                    // console.log(response);
                     if (response.status === 200) {
                         Swal.fire({
                             title: "Deleted!",

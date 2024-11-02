@@ -103,10 +103,10 @@ function Attendence() {
             Authorization: `Bearer ${token}`
         }
         const response = await todayAttendence(header)
-        console.log(response.data);
+        // console.log(response.data);
         setAttendenceToday(response.data)
     }
-    console.log('attendenceToday', attendenceToday);
+    // console.log('attendenceToday', attendenceToday);
 
 
     const { attendanceMarked } = attendenceToday;
@@ -119,10 +119,10 @@ function Attendence() {
             Authorization: `Bearer ${token}`
         }
         const response = await attendanceThisMonth(headers)
-        console.log(response.data);
+        // console.log(response.data);
         setAttendence(response.data.data)
     }
-    console.log('attendenceThisMonth', attendence);
+    // console.log('attendenceThisMonth', attendence);
 
     // const handleSubmit = async () => {
     //     // Fetch data based on selection (age, department, etc.)
@@ -150,8 +150,7 @@ function Attendence() {
 
         try {
             const response = await searchAttendence(body, headers); 
-            console.log("Filtered Attendence", response.data.data);
-            // alert(response.message)
+            // console.log("Filtered Attendence", response.data.data);
             setShowData(false);  // This hides the first data
             setFilteredAttendence(response.data.data);
         } catch (error) {

@@ -16,7 +16,7 @@ function LeaveReq() {
             Authorization: `Bearer ${token}`
         }
         const response = await pendingLeaveReq(headers)
-        console.log(response.data)
+        // console.log(response.data)
         setPendingReq(response.data.leaves);
 
     }
@@ -31,7 +31,7 @@ function LeaveReq() {
             Authorization: `Bearer ${token}`
         }
         const response = await allLeaveReq(headers)
-        console.log(response.data);
+        // console.log(response.data);
 
         setAllRequest(response.data.leaves)
     }

@@ -93,7 +93,7 @@ function AddEmployee() {
                                 <label className='formHeading my-2'>Employee Name</label>
                                 <MDBInput onChange={(e)=>setName(e.target.value)} id="form1" type="text" />
                                 <label className='formHeading my-2'>Password</label>
-                                <MDBInput onChange={(e)=>setPassword(e.target.value)} id="form1" type="text" />
+                                <MDBInput onChange={(e)=>setPassword(e.target.value)} id="form1" type="password" />
                                 <label className='formHeading my-2'>Employee Code</label>
                                 <MDBInput onChange={(e)=>setEmployeeCode(e.target.value)} id="form1" type="text" />
 

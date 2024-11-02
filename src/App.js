@@ -41,6 +41,10 @@ import SpecifiedViewDesignation from './Pages.jsx/SpecifiedViewDesignation/Speci
 import SpecifiedViewWorks from './Pages.jsx/SpecifiedViewWorks/SpecifiedViewWorks';
 import ViewApprovedAttendenceReq from './Pages.jsx/SpecifiedAttendenceApprovedReq/ViewApprovedAttendenceReq';
 import ViewRejectedAttendenceReq from './Pages.jsx/SpecifiedAttendenceRejectedReq/ViewRejectedAttendenceReq';
+import AdminProfile from './Pages.jsx/AdminProfile/AdminProfile';
+import { useEffect } from 'react';
+import Swal from 'sweetalert2';
+
 
 function App() {
 
@@ -48,6 +52,15 @@ function App() {
   const location = useLocation()
 
   const isLoginPage = location.pathname === '/';
+
+
+  useEffect(() => {
+    // Check for token on mount, if none redirect to sign-in page
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/', { replace: true });
+    }
+  }, [navigate]);
 
   return (
     <div>
@@ -63,7 +76,16 @@ function App() {
           onClick={({ key }) => {
             if (key === "Logout") {
               // Handle logout functionality
+              localStorage.removeItem('token');
+              Swal.fire({
+                title: 'Success...!',
+                text: 'Signing Out',
+                icon: 'success', 
+                confirmButtonText: 'OK',
+              });
+             setTimeout(()=>{
               navigate('/')
+             },3000)
             } else {
               navigate(key);
             }
@@ -86,7 +108,7 @@ function App() {
             { label: <span style={{ fontSize: '16px' }}>Designation</span>, key: '/designation',icon:<CoPresentIcon/> },
             { label: <span style={{ fontSize: '16px' }}>Works</span>, key: "/works", icon: <MenuBookIcon /> },   
             { label:  <span style={{ fontSize: '16px' }}>LOGOUT</span>, disabled: true },       
-            { label: <span style={{ fontSize: '16px' }}>Logout</span>, key: "Logout", icon: <LoginIcon /> }
+            { label: <span  style={{ fontSize: '16px' }}>Logout</span>, key: "Logout", icon: <LoginIcon /> }
           ]}
         />
         <Content />
@@ -139,6 +161,7 @@ function Content() {
         <Route path='/work/view/:id' element={<SpecifiedViewWorks/>} />
         <Route path='/attendence/approved/view/:id' element={<ViewApprovedAttendenceReq/>} />
         <Route path='/attendence/Rejected/view/:id' element={<ViewRejectedAttendenceReq/>} />
+        <Route path='/admin/adminProfile' element={<AdminProfile/>} />
 
       </Routes>
     </div>

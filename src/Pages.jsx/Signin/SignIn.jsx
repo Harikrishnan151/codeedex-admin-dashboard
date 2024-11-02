@@ -38,13 +38,13 @@ function SignIn() {
             }else{
                 setLoading(true);
                 const response=await adminLogin(body)
-                console.log(response)
+                // console.log(response)
                 setLoading(false);
                 if(response.status===200){
                     if(response.data.token){
                         const decode =jwtDecode(response.data.token)
                         setAdminData(decode)
-                        console.log(decode);
+                        // console.log(decode);
                         localStorage.setItem("token",response.data.token)
                         localStorage.setItem("adminId",decode.id)
                         localStorage.setItem("adminName",decode.username)

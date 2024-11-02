@@ -22,10 +22,10 @@ function Designation() {
             Authorization: `Bearer ${token}`
         }
         const response=await fetchDesignations(headers)
-        console.log(response.data);
+        // console.log(response.data);
         setDesignation(response.data)
     }
-    console.log(designation);
+    // console.log(designation);
 
     //Api call to delete designation
     const handleDelete = async (id) => {
@@ -46,7 +46,7 @@ function Designation() {
             Authorization: `Bearer ${token}`
         }
             const response = await deleteDesignation(id,headers);
-            console.log(response);
+            // console.log(response);
             if (response.status === 200) {
               Swal.fire({
                 title: "Deleted!",

@@ -21,7 +21,7 @@ function Employess() {
             Authorization: `Bearer ${token}`
         }
         const response=await allUsers(headers)
-        console.log(response.data);
+        // console.log(response.data);
         setUsers(response.data)
         
     }
@@ -45,13 +45,13 @@ function Employess() {
         }).then(async (result) => {
           if (result.isConfirmed) {
             try {
-              // Api call to delete
-              const token=localStorage.getItem("token")
+       // Api call to delete
+       const token=localStorage.getItem("token")
         const headers={
             Authorization: `Bearer ${token}`
         }
               const response = await deleteUser(id,headers);
-              console.log(response);
+              // console.log(response);
               if (response.status === 200) {
                 Swal.fire({
                   title: "Deleted!",

@@ -26,7 +26,7 @@ function Home() {
       Authorization: `Bearer ${token}`
     }
     const response = await attendanceThisMonth(headers)
-    console.log(response.data);
+    // console.log(response.data);
     setAttendence(response.data)
   }
   console.log('attendenceThisMonth', attendence);
@@ -39,7 +39,7 @@ function Home() {
       Authorization: `Bearer ${token}`
     }
     const response = await todayAttendence(header)
-    console.log(response.data);
+    // console.log(response.data);
     setAttendenceToday(response.data)
   }
   console.log('attendenceToday', attendenceToday);
@@ -53,7 +53,7 @@ function Home() {
       Authorization: `Bearer ${token}`
     }
     const response = await attendenceSummary(header)
-    console.log('attendence Summary', response.data);
+    // console.log('attendence Summary', response.data);
     setAttendenceData(response.data)
 
   }

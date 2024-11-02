@@ -23,11 +23,11 @@ function Admin() {
             Authorization: `Bearer ${token}`
         }
         const response=await allAdmins(headers)
-        console.log(response.data);
+        // console.log(response.data);
         setAdmin(response.data)
         
     }
-    console.log(admin);
+    // console.log(admin);
 
     //Api call to delete admn
     const handleDelete=async(id)=>{
@@ -37,7 +37,7 @@ function Admin() {
             Authorization: `Bearer ${token}`
         }
         const response=await deleteAdmin(id,headers)
-        console.log(response);
+        // console.log(response);
         Swal.fire({
             title: 'Success!',
             text: 'Admin deleted sucessfully',
@@ -99,7 +99,7 @@ function Admin() {
                                 <th style={{ fontWeight: 'bold' }} scope='col'>Email</th>
                                 <th style={{ fontWeight: 'bold' }} scope='col'>Username</th>
                                 <th style={{ fontWeight: 'bold' }} scope='col'>AdminCode</th>
-                                <th style={{ fontWeight: 'bold' }} scope='col'>Edit</th>
+                                {/* <th style={{ fontWeight: 'bold' }} scope='col'>Edit</th> */}
                                 <th style={{ fontWeight: 'bold' }} scope='col'>Delete</th>
                             </tr>
                         </MDBTableHead>
@@ -114,7 +114,7 @@ function Admin() {
                                 <td>{adminData.email}</td>
                                 <td>{adminData.username}</td>
                                 <td>{adminData.adminCode}</td>
-                                <td> <Link style={{ textDecoration: 'none', color: 'inherit',backgroundColor:"inherit" }} to={`/edit/admin/${adminData._id}`}> <button className='btns' onClick={(e) => e.stopPropagation()} ><BorderColorIcon /></button></Link></td>
+                                {/* <td> <Link style={{ textDecoration: 'none', color: 'inherit',backgroundColor:"inherit" }} to={`/edit/admin/${adminData._id}`}> <button className='btns' onClick={(e) => e.stopPropagation()} ><BorderColorIcon /></button></Link></td> */}
                                 <td>
                         <button
                             onClick={(e) => {

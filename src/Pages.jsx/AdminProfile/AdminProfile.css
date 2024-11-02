@@ -1,0 +1,11 @@
+.mainHeading{
+    font-family: "Montserrat", sans-serif;
+}
+.edit-Button{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+.profile{
+   padding-left:330px;
+}
