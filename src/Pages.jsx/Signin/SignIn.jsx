@@ -118,10 +118,10 @@ function SignIn() {
                         <MDBCardBody className='signInform'>
                           
                                 <form onSubmit={handleSubmit}>
-                                    <label className='formHeading my-2'>Username</label>
-                                    <MDBInput onChange={(e) => setEmail(e.target.value)} id="form1" type="text" />
+                                    <label className='formHeading my-2'>Email</label>
+                                    <MDBInput onChange={(e) => setEmail(e.target.value)}  type="text" />
                                     <label className='formHeading my-2'>Password</label>
-                                    <MDBInput onChange={(e) => setPassword(e.target.value)} id="form1" type="password" />
+                                    <MDBInput onChange={(e) => setPassword(e.target.value)}  type="password" />
                                     <div>
                                         <div className='my-3'>
                                             <MDBCheckbox color='black' name='flexCheck' value='' id='flexCheckDefault' label='Remember me' />
